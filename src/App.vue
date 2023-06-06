@@ -1,7 +1,7 @@
 <template>
   <h1>Blocco Note</h1>
-  <ListaNote @add-note="showCreateNote=true" :notes="notes" ></ListaNote>
-  <RimuoviNota @confirm-remove="$showRemoveNote=true"/>
+  <ListaNote @add-note="showCreateNote=true" @confirm-remove="showRemoveNote=true" :notes="notes" ></ListaNote>
+  <RimuoviNota v-if="showRemoveNote" @cancel="showRemoveNote=false"/>
   <CreaNota v-if="showCreateNote" @add-note="addNote" @cancel="showCreateNote=false"/>
 </template>
 
@@ -28,7 +28,7 @@
         },
         methods:{
           removeNote(id){
-            this.notes = this.notes.filter(note => note.id !== this.noteToRemove);
+          this.notes = this.notes.filter(note => note.id !== this.noteToRemove);
           this.noteToRemove = null;
           },
           addNote(id,title,content,date){
