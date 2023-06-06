@@ -4,7 +4,7 @@
   <RimuoviNota @confirm-remove="$showRemoveNote=true"/>
   <CreaNota v-if="showCreateNote" @add-note="addNote" @cancel="showCreateNote=false"/>
 </template>
-
+<!--ciaooooooooooooooooooooooooooo-->
 
 <script>
     import CreaNota from "./components/CreaNota.vue";
