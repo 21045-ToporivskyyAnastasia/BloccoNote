@@ -27,11 +27,22 @@
         },
   }
   </script>
-
-<style>
+<style scoped>
 * {
   max-width: 750px;
   color:rgb(0, 0, 0);
+}
+.newContent {
+  height: 300px;
+  width: 690px;
+  background-color: rgb(66, 76, 87);
+  color: white;
+}
+.newTitle {
+  height: 50px;
+  width: 690px;
+  background-color: rgb(66, 76, 87);
+  color: white;
 }
 main {
     margin: 0 auto;
