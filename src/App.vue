@@ -48,6 +48,8 @@
   <style>
     #app {
       width: 750px;
+      padding: 0;
+      margin: 0;
     }
     body {
       background-color: white;
@@ -57,12 +59,14 @@
       width: 750px;
       font-weight: bold;
       padding-bottom: 25px;
+      margin-bottom: 8px;
       font-size: 75px;
       color: white;
       background-color: rgb(66, 76, 87);
       position:fixed;
-      padding-left: 60px;
       top: 0;
       left: 0;
+      position: absolute;
+      text-align: center;
     }
   </style>

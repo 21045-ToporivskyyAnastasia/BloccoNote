@@ -50,38 +50,10 @@
   </script>
   <style scoped>
   * {
-    max-width: 750px;
-    color:rgb(0, 0, 0);
+    color: black;
   }
-
-  main {
-      margin: 0 auto;
-      width: 750px;
-      background-color: white;
-  }
-  .container {
-    max-width: 1000px;
-    margin: 0 auto;
-    width: 750px;
-    background-color: white;
-  }
-  h1 {
-    font-weight: bold;
-    margin-bottom: 25px;
-    font-size: 75px;
-    color: white;
-    margin-left: 20px;
-  }
-  header {
-    display: flex;
-    width: 750px;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgb(66, 76, 87);
-  }
-  main {
-    height: 100vh;
-    width: 100vw;
+  textarea {
+    font-size: 24px;
   }
   #newContent {
     height: 350px;
@@ -104,7 +76,8 @@
     top: 150px;
     display: flex;
     flex-direction: column;
-    margin-left: 20px;
+    align-items: center;
+    margin-left: 50px;
   }
   .modal-buttons {
     padding: 10px 20px;
@@ -133,23 +106,5 @@
     width: 50%;
     color: black;
     font-size: 18px;
-  }
-  textarea {
-    width: 100%;
-    height: 200px;
-    padding: 5px;
-    font-size: 20px;
-  }
-  .showAddNote {
-    border: none;
-    padding: 10px;
-    margin-right: 20px;
-    width: 70px;
-    height: 70px;
-    cursor: pointer;
-    background-color: rgb(27, 157, 217);
-    border-radius: 1000px;
-    color: rgb(0, 0, 0);
-    font-size: 50px;
   }
 </style>
