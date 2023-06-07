@@ -6,7 +6,7 @@
         <h3 class="note-title">{{ note.title }}</h3>
         <p class="note-content">{{ note.content }}</p>
         <p class="note-date">Data: {{ note.date.toLocaleDateString("en-US") }}</p>
-        <button class="remove-button" @click="confirmRemove(note.id)">Rimuovi</button>
+        <button class="remove-button" @click="confirmRemove(note.id)">x</button>
       </li>
     </ul>
     <button id="addNote" @click="showAddNote" >+</button>
@@ -32,26 +32,14 @@
   max-width: 750px;
   color:rgb(0, 0, 0);
 }
-.newContent {
-  height: 300px;
-  width: 690px;
-  background-color: rgb(66, 76, 87);
-  color: white;
-}
-.newTitle {
-  height: 50px;
-  width: 690px;
-  background-color: rgb(66, 76, 87);
-  color: white;
-}
 main {
     margin: 0 auto;
     width: 750px;
     background-color: white;
 }
-.container {
+.note-list {
   max-width: 1000px;
-  margin: 0 auto;
+  margin-top: 150px;
   background-color: white;
 }
 h1 {
@@ -61,7 +49,17 @@ h1 {
   color: white;
   margin-left: 20px;
 }
-.card {
+.remove-button {
+  background-color: rgb(27, 157, 217);
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  right: 70px;
+  border-radius: 4752934756925602579257665629627564765827546276572652485px;
+  border: none;
+  font-size: 20px;
+}
+.note-item {
   width: 600px;
   height: 175px;
   background-color: rgb(217, 217, 217);
@@ -70,22 +68,21 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 70px;
   margin-top: 30px;
   align-items: left;
 }
 .note-content {
-  line-height: 1.25;
-  font-size: 14px;
+  font-size: 16px;
 }
-.note-title {
-  font-size: 20px;
+h3 {
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 .note-date {
   font-size: 12.5px;
   margin-top: auto;
+  font-weight: bold;
 }
 header {
   display: flex;
@@ -123,17 +120,16 @@ main {
 }
 #addNote {
   border: none;
-  padding: 10px;
-  width: 70px;
-  height: 70px;
+  padding: 12px;
+  width: 80px;
+  height: 80px;
   cursor: pointer;
-  border-radius: 1000px;
   border-radius: 1000px;
   color: rgb(0, 0, 0);
   font-size: 50px;
-  position: fixed;
-  right: 80px;
-  bottom: 80px;
+  position: absolute;
+  right: 60px;
+  bottom: 60px;
   background-color: rgb(27, 157, 217);
 }
 </style>

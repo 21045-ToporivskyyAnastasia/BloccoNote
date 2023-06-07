@@ -5,8 +5,8 @@
         <h2>Conferma Rimozione</h2>
         <p>Sei sicuro di voler rimuovere la nota?</p>
         <div class="modal-buttons">
-          <button @click="remove">Conferma</button>
-          <button @click="cancel">Annulla</button>
+          <button id="confirmButton" @click="remove">Conferma</button>
+          <button id="cancelButton" @click="cancel">Annulla</button>
         </div>
       </div>
     </div>
@@ -34,6 +34,27 @@
 * {
   max-width: 750px;
   color:rgb(0, 0, 0);
+}
+#confirmButton {
+  border: 1px solid rgb(66, 76, 87);
+  border-radius: 15px;
+  background-color: rgb(27, 157, 217);
+  cursor: pointer;
+  width: 50%;
+  height: 40px;
+  width: 50%;
+  color: black;
+  font-size: 18px;
+}
+#cancelButton {
+  border: 1px solid rgb(66, 76, 87);
+  border-radius: 15px;
+  background-color: rgb(217, 217, 217);
+  cursor: pointer;
+  height: 40px;
+  width: 50%;
+  color: black;
+  font-size: 18px;
 }
 .newContent {
   height: 300px;
@@ -116,23 +137,13 @@ main {
   width: 100vw;
 }
 .modal {
-  width: 750px;
+  width: 650px;
   background-color: rgb(66, 76, 87);
   border-radius: 10px;
   padding: 30px;
   position: relative;
   display: flex;
   flex-direction: column;
-}
-.modal-buttons button {
-  padding: 10px 20px;
-  font-size: 20px;
-  width: 50%;
-  background-color: rgb(27, 157, 217);
-  border: none;
-  color: white;
-  cursor: pointer;
-  margin-top: 15px;
 }
 .modal p {
   margin-left: auto;
