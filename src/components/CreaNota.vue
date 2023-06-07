@@ -9,8 +9,8 @@
           <br>
           
           <div class="modal-buttons">
-            <button type="submit" >Salva</button>
-            <button @click="cancel" >Annulla</button>
+            <button id="submitButton" type="submit" >Salva</button>
+            <button id="cancelButton" @click="cancel" >Annulla</button>
           </div>
         </form>
       </div>
@@ -56,18 +56,7 @@
     max-width: 750px;
     color:rgb(0, 0, 0);
   }
-  .newContent {
-    height: 300px;
-    width: 690px;
-    background-color: rgb(66, 76, 87);
-    color: white;
-  }
-  .newTitle {
-    height: 50px;
-    width: 690px;
-    background-color: rgb(66, 76, 87);
-    color: white;
-  }
+
   main {
       margin: 0 auto;
       width: 750px;
@@ -85,32 +74,6 @@
     color: white;
     margin-left: 20px;
   }
-  .card {
-    width: 600px;
-    height: 175px;
-    background-color: rgb(217, 217, 217);
-    padding: 10px;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-left: 70px;
-    margin-top: 30px;
-    align-items: left;
-  }
-  .note-content {
-    line-height: 1.25;
-    font-size: 14px;
-  }
-  .note-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  .note-date {
-    font-size: 12.5px;
-    margin-top: auto;
-  }
   header {
     display: flex;
     width: 750px;
@@ -118,48 +81,53 @@
     justify-content: space-between;
     background-color: rgb(66, 76, 87);
   }
-  .cards-container {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.77);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-  }
   main {
     height: 100vh;
     width: 100vw;
   }
+  #newContent {
+    height: 350px;
+    width: 605px;
+    background-color: rgb(66, 76, 87);
+    color: white;
+  }
+  #newTitle {
+    height: 50px;
+    width: 605px;
+    background-color: rgb(66, 76, 87);
+    color: white;
+  }
   .modal {
-    width: 750px;
+    width: 650px;
     background-color: rgb(66, 76, 87);
     border-radius: 10px;
     padding: 30px;
-    position: relative;
+    position: fixed;
+    top: 150px;
     display: flex;
     flex-direction: column;
+    margin-left: 20px;
   }
   .modal-buttons {
     padding: 10px 20px;
-    font-size: 20px;
-    width: 50%;
-    background-color: rgb(27, 157, 217);
-    border: none;
+    font-size: 30px;
+    width: 100%;
     color: white;
-    cursor: pointer;
-    margin-top: 15px;
+    margin-top: 10px;
   }
-  .modal p {
-    margin-left: auto;
-    font-size: 20px;
-    z-index: 100000;
+  #submitButton {
+    border: 1px solid rgb(66, 76, 87);
+    border-radius: 15px;
+    background-color: rgb(27, 157, 217);
     cursor: pointer;
+    color: black;
+  }
+  #cancelButton {
+    border: 1px solid rgb(66, 76, 87);
+    border-radius: 15px;
+    background-color: rgb(217, 217, 217);
+    cursor: pointer;
+    color: black;
   }
   textarea {
     width: 100%;

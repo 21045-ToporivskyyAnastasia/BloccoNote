@@ -1,7 +1,8 @@
 <template>
-  <h1>Blocco Note</h1>
+  <header>Blocco Note</header>
+
   <ListaNote @add-note="showCreateNote=true" @confirm-remove="showRemoveNote=true" :notes="notes" ></ListaNote>
-  <RimuoviNota v-if="showRemoveNote" @remove-note="removeNote" />
+  <RimuoviNota v-if="showRemoveNote" @remove-note="removeNote" @cancel="showRemoveNote=false"/>
   <CreaNota v-if="showCreateNote" @add-note="addNote" @cancel="showCreateNote=false"/>
 </template>
 
@@ -45,3 +46,25 @@
         
     }
 </script>
+
+<style>
+  #app {
+    width: 750px;
+  }
+  body {
+    background-color: white;
+    width: 750px;
+  }
+  header {
+    font-weight: bold;
+    padding-bottom: 25px;
+    font-size: 75px;
+    color: white;
+    background-color: rgb(66, 76, 87);
+    position:fixed;
+    padding-left: 60px;
+    top: 0;
+    left: 0;
+  }
+
+</style>

@@ -9,7 +9,7 @@
         <button class="remove-button" @click="confirmRemove(note.id)">Rimuovi</button>
       </li>
     </ul>
-    <button @click="showAddNote" >+</button>
+    <button id="addNote" @click="showAddNote" >+</button>
   </div>
   </template>
   
@@ -132,10 +132,9 @@ textarea {
   padding: 5px;
   font-size: 20px;
 }
-.showAddNote {
+#addNote {
   border: none;
   padding: 10px;
-  margin-right: 20px;
   width: 70px;
   height: 70px;
   cursor: pointer;
@@ -143,5 +142,8 @@ textarea {
   border-radius: 1000px;
   color: rgb(0, 0, 0);
   font-size: 50px;
+  position: fixed;
+  right: 80px;
+  bottom: 80px;
 }
 </style>
