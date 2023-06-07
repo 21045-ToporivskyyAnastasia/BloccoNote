@@ -1,12 +1,10 @@
 <template>
   <h1>Blocco Note</h1>
   <ListaNote @add-note="showCreateNote=true" @confirm-remove="showRemoveNote=true" :notes="notes" ></ListaNote>
-  <RimuoviNota v-if="showRemoveNote" @cancel="showRemoveNote=false"/>
+  <RimuoviNota v-if="showRemoveNote" @remove-note="removeNote" />
   <CreaNota v-if="showCreateNote" @add-note="addNote" @cancel="showCreateNote=false"/>
 </template>
 
-<!--scemo stai zitto-->
-<!--ammazzati stronzo-->
 <script>
     import CreaNota from "./components/CreaNota.vue";
     import ListaNote from "./components/ListaNote.vue";
@@ -28,8 +26,8 @@
         },
         methods:{
           removeNote(id){
-          this.notes = this.notes.filter(note => note.id !== this.noteToRemove);
-          this.noteToRemove = null;
+          this.notes.pop()
+          this.showRemoveNote=false;
           },
           addNote(id,title,content,date){
             const note = {

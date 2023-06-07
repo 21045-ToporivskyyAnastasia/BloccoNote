@@ -145,7 +145,7 @@
     display: flex;
     flex-direction: column;
   }
-  .modal-buttons button {
+  .modal-buttons {
     padding: 10px 20px;
     font-size: 20px;
     width: 50%;
