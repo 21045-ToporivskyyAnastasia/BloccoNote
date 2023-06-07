@@ -27,11 +27,22 @@
         },
   }
   </script>
-
-<style>
+<style scoped>
 * {
   max-width: 750px;
   color:rgb(0, 0, 0);
+}
+.newContent {
+  height: 300px;
+  width: 690px;
+  background-color: rgb(66, 76, 87);
+  color: white;
+}
+.newTitle {
+  height: 50px;
+  width: 690px;
+  background-color: rgb(66, 76, 87);
+  color: white;
 }
 main {
     margin: 0 auto;
@@ -110,40 +121,19 @@ main {
   display: flex;
   flex-direction: column;
 }
-.modal-buttons button {
-  padding: 10px 20px;
-  font-size: 20px;
-  width: 50%;
-  background-color: rgb(27, 157, 217);
-  border: none;
-  color: white;
-  cursor: pointer;
-  margin-top: 15px;
-}
-.modal p {
-  margin-left: auto;
-  font-size: 20px;
-  z-index: 100000;
-  cursor: pointer;
-}
-textarea {
-  width: 100%;
-  height: 200px;
-  padding: 5px;
-  font-size: 20px;
-}
 #addNote {
   border: none;
   padding: 10px;
   width: 70px;
   height: 70px;
   cursor: pointer;
-  background-color: rgb(27, 157, 217);
+  border-radius: 1000px;
   border-radius: 1000px;
   color: rgb(0, 0, 0);
   font-size: 50px;
   position: fixed;
   right: 80px;
   bottom: 80px;
+  background-color: rgb(27, 157, 217);
 }
 </style>

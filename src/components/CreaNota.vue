@@ -47,10 +47,7 @@
 
     },
   }
-  
-
   </script>
-
   <style scoped>
   * {
     max-width: 750px;
@@ -65,6 +62,7 @@
   .container {
     max-width: 1000px;
     margin: 0 auto;
+    width: 750px;
     background-color: white;
   }
   h1 {
@@ -120,14 +118,21 @@
     border-radius: 15px;
     background-color: rgb(27, 157, 217);
     cursor: pointer;
+    width: 50%;
+    height: 40px;
+    width: 50%;
     color: black;
+    font-size: 18px;
   }
   #cancelButton {
     border: 1px solid rgb(66, 76, 87);
     border-radius: 15px;
     background-color: rgb(217, 217, 217);
     cursor: pointer;
+    height: 40px;
+    width: 50%;
     color: black;
+    font-size: 18px;
   }
   textarea {
     width: 100%;
@@ -148,7 +153,3 @@
     font-size: 50px;
   }
 </style>
-  
-  
-  
-  
