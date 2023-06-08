@@ -1,14 +1,16 @@
 <template>
   <header>Blocco Note</header>
-  <ListaNote @add-note="showCreateNote=true" @confirm-remove="openpopup" :notes="notes" ></ListaNote>
+  <ListaNote @add-note="showCreateNote=true" @modifica-nota="showModificaNota=true" @confirm-remove="openpopup" :notes="notes" ></ListaNote>
   <RimuoviNota v-if="showRemoveNote" :nota="lastclickedNote" @remove-note="removeNote" @cancel="showRemoveNote=false"/>
   <CreaNota v-if="showCreateNote" @add-note="addNote" @cancel="showCreateNote=false"/>
+  <ModificaNota v-if="showModificaNote" @modifica-nota="modificaNota" @cancel="showModificaNote=false"/>
 </template>
 
 <script>
   import CreaNota from "./components/CreaNota.vue";
   import ListaNote from "./components/ListaNote.vue";
   import RimuoviNota from "./components/RimuoviNota.vue";
+  import ModificaNota from "./components/ModificaNota.vue";
 
   export default{
       name: "App",
@@ -16,9 +18,11 @@
         CreaNota,
         ListaNote,
         RimuoviNota,
+        ModificaNota,
       },
       data(){
         return {
+          showModificaNote:false,
           showCreateNote:false,
           showRemoveNote:false,
           notes: [],
@@ -26,6 +30,9 @@
         }
       },
       methods:{
+        modificaNota(note){
+
+        },
         removeNote(note){
           const index = this.notes.findIndex(checkid);
           function checkid(noter) {
