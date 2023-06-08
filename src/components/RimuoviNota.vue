@@ -13,13 +13,14 @@
   </template>
 
   <script>
+
     export default{
     name: "RimuoviNota",
-
+    props: ["nota"],
     methods: {
         remove() {
           // Logica per rimuovere una nota
-          this.$emit('remove-note');
+          this.$emit('remove-note', this.nota);
         },
         cancel() {
           // Logica per annullare la rimozione di una nota
@@ -31,6 +32,7 @@
 
 </script>
 <style scoped>  
+
   * {
     color: black;
   }
@@ -69,12 +71,13 @@
     margin-bottom: 20px;
   }
   .modal {
-    margin-left: 102px;
+    position: fixed;
+    top: 300px;
+    left: 150px;
     width: 480px;
     background-color: rgb(66, 76, 87);
     border-radius: 10px;
     padding: 10px;
-    display: flex;
     flex-direction: column;
   }
 </style>
