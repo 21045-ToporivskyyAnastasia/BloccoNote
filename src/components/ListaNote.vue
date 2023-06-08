@@ -7,6 +7,7 @@
         <p class="note-content">{{ note.content }}</p>
         <p class="note-date">Data: {{ note.date.toLocaleDateString("en-US") }}</p>
         <button class="remove-button" @click="confirmRemove(note)">x</button>
+        <button class="modifica-button" @click="showModificaNota">modifica</button>
       </li>
     </ul>
     <button id="addNote" @click="showAddNote" >+</button>
@@ -18,6 +19,9 @@
     name: "ListaNote",
     props: ['notes'],
     methods: {
+      showModificaNota(){
+          this.$emit('modifica-nota', this.nota)
+        },
       showAddNote(){
         this.$emit('add-note');
       },
@@ -36,6 +40,13 @@
     margin-top: 150px;
     background-color: white;
   }
+
+  /*.modifica-button{
+    background-color: rgb(27, 157, 217);
+    overflow:right;
+    border: none;
+    font-size: 20px;
+  }*/
   .remove-button {
     background-color: rgb(27, 157, 217);
     height: 40px;
