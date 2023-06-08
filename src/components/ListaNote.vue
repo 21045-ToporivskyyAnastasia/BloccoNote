@@ -6,7 +6,7 @@
         <h3 class="note-title">{{ note.title }}</h3>
         <p class="note-content">{{ note.content }}</p>
         <p class="note-date">Data: {{ note.date.toLocaleDateString("en-US") }}</p>
-        <button class="remove-button" @click="confirmRemove(note.id)">x</button>
+        <button class="remove-button" @click="confirmRemove(note)">x</button>
       </li>
     </ul>
     <button id="addNote" @click="showAddNote" >+</button>
@@ -48,7 +48,7 @@
   }
   .note-item {
     width: 600px;
-    height: 175px;
+    height: auto;
     background-color: rgb(217, 217, 217);
     padding: 10px;
     border-radius: 15px;
@@ -67,7 +67,7 @@
   }
   .note-date {
     font-size: 12.5px;
-    margin-top: auto;
+    margin-top: 8px;
     font-weight: bold;
   }
   .note-list{

@@ -13,13 +13,14 @@
   </template>
 
   <script>
+
     export default{
     name: "RimuoviNota",
-
+    props: ["nota"],
     methods: {
         remove() {
           // Logica per rimuovere una nota
-          this.$emit('remove-note');
+          this.$emit('remove-note', this.nota);
         },
         cancel() {
           // Logica per annullare la rimozione di una nota
