@@ -53,9 +53,7 @@
     }
 </script>
 <style>
-  * {
-    max-width: 750px;
-  }
+
   #app {
     width: 750px;
     padding: 0;
@@ -66,7 +64,7 @@
     width: 750px;
   }
   header {
-    width: 750px;
+    width: 100%;
     font-weight: bold;
     padding-bottom: 25px;
     margin-bottom: 8px;
