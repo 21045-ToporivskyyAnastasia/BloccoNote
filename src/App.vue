@@ -1,9 +1,9 @@
 <template>
   <header>Blocco Note</header>
-  <ListaNote @add-note="showCreateNote=true" @modifica-nota="showModificaNota=true" @confirm-remove="openpopup" :notes="notes" ></ListaNote>
+  <ListaNote @add-note="showCreateNote=true" @modifica-nota="openeditpopup" @confirm-remove="openremovepopup" :notes="notes" ></ListaNote>
   <RimuoviNota v-if="showRemoveNote" :nota="lastclickedNote" @remove-note="removeNote" @cancel="showRemoveNote=false"/>
   <CreaNota v-if="showCreateNote" @add-note="addNote" @cancel="showCreateNote=false"/>
-  <ModificaNota v-if="showModificaNote" @modifica-nota="modificaNota" @cancel="showModificaNote=false"/>
+  <ModificaNota v-if="showModificaNote" :nota="lastclickedNote" @modifica-note="modificaNota" @cancel="showModificaNote=false" />
 </template>
 
 <script>
@@ -30,9 +30,22 @@
         }
       },
       methods:{
-        modificaNota(note){
-
+        modificaNota(notem,vecchiaNota) {
+           const note = {
+            id: notem.id,
+            title: notem.title,
+            content: notem.content,
+            date: notem.date,
+          };
+          this.showModificaNote = false;
+          this.notes.push(note);
+          const index = this.notes.findIndex(checkid);
+          function checkid(noter) {
+            return noter.id == vecchiaNota.id;
+          }
+          this.notes.splice(index, 1);
         },
+
         removeNote(note){
           const index = this.notes.findIndex(checkid);
           function checkid(noter) {
@@ -41,9 +54,13 @@
           this.notes.splice(index, 1);
           this.showRemoveNote=false;
         },
-        openpopup(note){
+        openremovepopup(note){
           this.lastclickedNote=note;
           this.showRemoveNote=true;
+        },
+        openeditpopup(note){
+          this.lastclickedNote=note;
+          this.showModificaNote=true;
         },
         addNote(notem){
           const note = {
@@ -54,6 +71,7 @@
           };
           this.notes.push(note);
           this.showCreateNote = false;
+          this.showModificaNote=false;
         }
       }
       
