@@ -1,14 +1,15 @@
+<!-- Template del componente create-note-modal -->
 <template id="create-note-modal-template">
     <div class="modal">
       <div class="modal-content">
         <form @submit.prevent="onSubmit" class="form-group">
-          <textarea id="newTitle" v-model="newTitle" placeholder="Inserisci titolo"></textarea>
+          <textarea id="newTitle" v-model="editedTitle" placeholder="Inserisci titolo"></textarea>
           <br>
-          <textarea id="newContent" v-model="newContent" placeholder="Inserisci testo"></textarea>
+          <textarea id="newContent" v-model="editedContent" placeholder="Inserisci testo"></textarea>
           <br>
           
           <div class="modal-buttons">
-            <button id="submitButton" type="submit" >Salva</button>
+            <button id="submitButton" type="salvaModifica" >Salva</button>
             <button id="cancelButton" @click="cancel" >Annulla</button>
           </div>
         </form>
@@ -16,23 +17,34 @@
     </div>
   </template>
 
+  
   <script>
   export default{
     name: "ModificaNota",
+    props:["nota"],
     data() {
         return {
-          newDate: '',
+            editedTitle: this.nota.title,
+            editedContent: this.nota.content,
+            newDate: this.nota.data,
         };
     },
     methods: {
       onSubmit() {
-        // Logica per aggiungere una nota
-        this.$emit('modifica-nota', this.nota);
-        this.newTitle ;
-        this.newContent ;
+        // Logica per modificare una nota
+        this.$emit('modifica-note', {
+          id: Date.now(),
+          title: this.editedTitle.trim(),
+          content: this.editedContent.trim(),
+          date: new Date(),
+        },
+        this.nota
+        );
+        this.newTitle = '';
+        this.newContent = '';
       },
       cancel() {
-        // Logica per annullare la creazione di una nota
+        // Logica per annullare la modifica di una nota
         this.$emit('cancel');
       },
 
