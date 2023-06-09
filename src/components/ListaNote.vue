@@ -7,7 +7,7 @@
         <p class="note-content">{{ note.content }}</p>
         <p class="note-date">Data: {{ note.date.toLocaleDateString("en-US") }}</p>
         <button class="remove-button" @click="confirmRemove(note)">x</button>
-        <button class="modifica-button" @click="showModificaNota(note)">modifica</button>
+        <button class="edit-button" @click="showModificaNota(note)">modifica</button>
       </li>
     </ul>
     <button id="addNote" @click="showAddNote" >+</button>
@@ -41,12 +41,16 @@
     background-color: white;
   }
 
-  /*.modifica-button{
+  .edit-button{
     background-color: rgb(27, 157, 217);
-    overflow:right;
     border: none;
-    font-size: 20px;
-  }*/
+    font-size: 14px;
+    position: relative; 
+    bottom: 0;
+    right: -460px;
+    width: 13%;
+    border-radius: 10px;
+  }
   .remove-button {
     background-color: rgb(27, 157, 217);
     height: 40px;

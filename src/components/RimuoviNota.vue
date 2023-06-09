@@ -73,7 +73,7 @@
   .modal {
     position: fixed;
     top: 300px;
-    left: 150px;
+    left: 135px;
     width: 480px;
     background-color: rgb(66, 76, 87);
     border-radius: 10px;
