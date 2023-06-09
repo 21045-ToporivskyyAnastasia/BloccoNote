@@ -44,7 +44,7 @@
   .edit-button{
     background-color: rgb(27, 157, 217);
     border: none;
-    font-size: 14px;
+    font-size: 15px;
     position: relative; 
     bottom: 0;
     right: -460px;
@@ -87,6 +87,7 @@
   }
   .note-list{
     margin-left: 29px;
+    margin-top: 180px;
   }
   #addNote {
     border: 1.9px solid rgb(0, 0, 0);
