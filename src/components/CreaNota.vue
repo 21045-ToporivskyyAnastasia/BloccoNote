@@ -48,6 +48,7 @@
     },
   }
   </script>
+  <!--design del pop-up crea nota con css-->
   <style scoped>
   * {
     color: black;

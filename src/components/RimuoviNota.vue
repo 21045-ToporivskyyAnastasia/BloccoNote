@@ -31,6 +31,7 @@
   }
 
 </script>
+<!--design del pop-up di conferma della rimozione di una nota con css-->
 <style scoped>  
 
   * {

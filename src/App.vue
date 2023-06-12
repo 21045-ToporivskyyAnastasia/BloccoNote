@@ -26,6 +26,7 @@
 </template>
 
 <script>
+//importazione dei componenti per la visualizzazione
 import CreaNota from "./components/CreaNota.vue";
 import ListaNote from "./components/ListaNote.vue";
 import RimuoviNota from "./components/RimuoviNota.vue";
@@ -55,6 +56,7 @@ export default {
     console.log(this.notes);
   },
   methods: {
+    //metodo write notes per permettere di leggere le note nel database
     async writeNotes() {
       let data = JSON.stringify({
         appCode: "ONOINT-0001",
@@ -82,6 +84,7 @@ export default {
           console.log(error);
         });
     },
+    //metodo read notes per permettere di scrivere nel database
     async readNotes() {
       let data = JSON.stringify({
         appCode: "ONOINT-0001",
@@ -103,6 +106,7 @@ export default {
       let risposta = await axios.request(config);
       this.notes=JSON.parse(risposta.data.data.data).notes;
     },
+    //metodo per modificare una nota 
     modificaNota(notem, vecchiaNota) {
       const note = {
         id: notem.id,
@@ -111,7 +115,8 @@ export default {
         date: ""+notem.date.getDate().toString().padStart(2, '0')+"-"+(notem.date.getMonth() + 1).toString().padStart(2, '0')+"-"+notem.date.getFullYear(),
       };
       this.showModificaNote = false;
-      this.notes.push(note);
+      this.notes.unshift(note);
+      //cancellazione della vecchia nota che è stata modificata
       const index = this.notes.findIndex(checkid);
       function checkid(noter) {
         return noter.id == vecchiaNota.id;
@@ -119,6 +124,7 @@ export default {
       this.notes.splice(index, 1);
       this.writeNotes();
     },
+    //metodo per rimuovere la nota una volta confermato il controllo della rimozione
     removeNote(note) {
       const index = this.notes.findIndex(checkid);
       function checkid(noter) {
@@ -128,14 +134,17 @@ export default {
       this.showRemoveNote = false;
       this.writeNotes();
     },
+    //si apre il pop-up per rimuovere una not
     openremovepopup(note) {
       this.lastclickedNote = note;
       this.showRemoveNote = true;
     },
+    //si apre il pop-up per editare una nota
     openeditpopup(note) {
       this.lastclickedNote = note;
       this.showModificaNote = true;
     },
+    //metodo per aggiungere una nota
     addNote(notem) {
       const note = {
         id: notem.id,
@@ -143,7 +152,7 @@ export default {
         content: notem.content,
         date: ""+notem.date.getDate().toString().padStart(2, '0')+"-"+(notem.date.getMonth() + 1).toString().padStart(2, '0')+"-"+notem.date.getFullYear(),
       };
-      this.notes.push(note);
+      this.notes.unshift(note);
       this.showCreateNote = false;
       this.showModificaNote = false;
       console.log(this.notes);
@@ -152,6 +161,7 @@ export default {
   },
 };
 </script>
+<!--design del blocco note con css-->
 <style>
 * {
   max-width: 750px;

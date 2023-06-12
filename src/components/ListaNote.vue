@@ -19,18 +19,22 @@
     name: "ListaNote",
     props: ['notes'],
     methods: {
-      showModificaNota(note){
-          this.$emit('modifica-nota', note)
-        },
-      showAddNote(){
-        this.$emit('add-note');
-      },
-          confirmRemove(id) {
-            this.$emit('confirm-remove', id);
+        //Logica per modificare una nota schiacciando il pulsante "modifica"
+        showModificaNota(note){
+            this.$emit('modifica-nota', note)
           },
+        //Logica per modificare una nota schiacciando il pulsante "+"
+        showAddNote(){
+          this.$emit('add-note');
         },
+        //Logica per fare uscire il pop-up di conferma rimozione schiacciando il tasto "x"
+        confirmRemove(id) {
+          this.$emit('confirm-remove', id);
+        },
+      },
   }
   </script>
+  <!--design della schermata principale con tutte le note con css-->
 <style scoped>
   * {
     color: black;
