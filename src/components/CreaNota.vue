@@ -61,12 +61,14 @@
     width: 605px;
     background-color: rgb(66, 76, 87);
     color: white;
+    resize: none;
   }
   #newTitle {
     height: 50px;
     width: 605px;
     background-color: rgb(66, 76, 87);
     color: white;
+    resize: none;
   }
   .modal {
     width: 650px;
