@@ -80,9 +80,12 @@
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
+    word-wrap: break-word;
   }
   .note-content {
     font-size: 16px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
   }
   .note-date {
     font-size: 12.5px;
