@@ -7,7 +7,7 @@
         <h3 class="note-title">
           {{ note.title }}
         </h3>
-        <p class="note-content" @click="showModificaNota(note)">{{ note.content }}
+        <p class="note-content" @click="showModificaNota(note)">{{ truncateText(note.content, 250) }}
         </p>
         <p class="note-date" @click="showModificaNota(note)">Data: {{ note.date }}
         </p>
@@ -35,6 +35,13 @@
         confirmRemove(id) {
           this.$emit('confirm-remove', id);
         },
+        truncateText(text, limit) {
+      if (text.length > limit) {
+        return text.slice(0, limit) + '...';
+      } else {
+        return text;
+      }
+          },
         },
       };
   
@@ -65,6 +72,7 @@
     font-size: 20px;
     position: absolute;
     right: 9%;
+    cursor: pointer;
   }
   .note-item {
     width: 82%;
