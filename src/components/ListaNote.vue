@@ -10,7 +10,6 @@
         <p class="note-content" @click="showModificaNota(note)">{{ note.content }}
         </p>
         <p class="note-date" @click="showModificaNota(note)">Data: {{ note.date }}
-         <!-- <button class="edit-button" @click="showModificaNota(note)">Visualizza</button>-->
         </p>
 
       </li>
@@ -40,7 +39,7 @@
       };
   
   </script>
-  <!--design della schermata principale con tutte le note con css-->
+  <!--design della schermata principale con tutte le note-->
 <style scoped>
   * {
     color: black;
@@ -68,16 +67,6 @@
     right: 9.1%;
     width: 80px;
     position: flex;
-  }
-  .expand-button {
-    background-color: rgb(217, 217, 217);
-    border: none;
-    font-size: 20px;
-    position: absolute; 
-    right: 9.3%;
-    position: flex;
-    color: rgb(27, 157, 217);
-    font-weight: bolder;
   }
   .remove-button {
     background-color: rgb(27, 157, 217);
