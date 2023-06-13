@@ -53,57 +53,65 @@
   * {
     color: black;
   }
+  .create-note-modal-template{
+    align-items: center;
+  }
   textarea {
     font-size: 24px;
   }
   #newContent {
-    height: 350px;
-    width: 605px;
+    height: 90%;
+    width: 100%;
     background-color: rgb(66, 76, 87);
     color: white;
     resize: none;
   }
   #newTitle {
-    height: 50px;
-    width: 605px;
+    min-height: 50px;
+    height: 10%;
+    width: 100%;
     background-color: rgb(66, 76, 87);
     color: white;
     resize: none;
   }
+  .form-group {
+    height: 85%;
+    width: 100%;
+  }
+  .modal-content {
+    height: 100%;
+    width: 100%;
+  }
   .modal {
-    width: 650px;
+    width: 80%;
+    height: 70%;
     background-color: rgb(66, 76, 87);
-    padding: 30px;
+    padding: 2%;
     position: fixed;
     top: 150px;
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    margin-left: 50px;
   }
   .modal-buttons {
-    padding: 10px 20px;
     font-size: 30px;
     width: 100%;
     color: white;
-    margin-top: 10px;
   }
   #submitButton {
     border: 1px solid rgb(66, 76, 87);
     background-color: rgb(27, 157, 217);
     cursor: pointer;
-    width: 50%;
-    height: 40px;
-    width: 50%;
+    width: 49.5%;
+    height: 100%;
     color: black;
     font-size: 18px;
+    margin-right: 1%;
   }
   #cancelButton {
     border: 1px solid rgb(66, 76, 87);
     background-color: rgb(217, 217, 217);
     cursor: pointer;
-    height: 40px;
-    width: 50%;
+    height: 100%;
+    width: 49.5%;
     color: black;
     font-size: 18px;
   }

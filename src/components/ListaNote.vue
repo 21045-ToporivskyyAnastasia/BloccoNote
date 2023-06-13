@@ -4,10 +4,14 @@
       <ul class="note-list">
       <li v-for="note in notes" :key="note.id" class="note-item">
         <button class="remove-button" @click="confirmRemove(note)">x</button>
-        <h3 class="note-title">{{ note.title }}</h3>
-        <p class="note-content">{{ note.content }}</p>
+        <h3 class="note-title">
+          {{ note.title }}
+        </h3>
+        <p class="note-content">{{ note.content }}
+          <button class="expand-button" @click="expandTest">↓</button>
+        </p>
         <p class="note-date">Data: {{ note.date }}
-          <button class="edit-button" @click="showModificaNota(note)">modifica</button>
+          <button class="edit-button" @click="showModificaNota(note)">Modifica</button>
         </p>
 
       </li>
@@ -64,6 +68,16 @@
     right: 9.1%;
     width: 80px;
     position: flex;
+  }
+  .expand-button {
+    background-color: rgb(217, 217, 217);
+    border: none;
+    font-size: 20px;
+    position: absolute; 
+    right: 9.3%;
+    position: flex;
+    color: rgb(27, 157, 217);
+    font-weight: bolder;
   }
   .remove-button {
     background-color: rgb(27, 157, 217);
