@@ -3,9 +3,9 @@
     <div class="modal">
       <div class="modal-content">
         <form @submit.prevent="onSubmit" class="form-group">
-          <textarea id="newTitle" v-model="newTitle" placeholder="Inserisci titolo"></textarea>
+          <textarea id="newTitle" v-model="newTitle" placeholder="Inserisci titolo" required></textarea>
           <br>
-          <textarea id="newContent" v-model="newContent" placeholder="Inserisci testo"></textarea>
+          <textarea id="newContent" v-model="newContent" placeholder="Inserisci testo" required></textarea>
           <br>
           
           <div class="modal-buttons">
@@ -19,7 +19,7 @@
 
   
   <script>
-  export default{
+  export default {
     name: "CreaNota",
     data() {
         return {
@@ -73,7 +73,6 @@
   .modal {
     width: 650px;
     background-color: rgb(66, 76, 87);
-    border-radius: 10px;
     padding: 30px;
     position: fixed;
     top: 150px;
@@ -91,7 +90,6 @@
   }
   #submitButton {
     border: 1px solid rgb(66, 76, 87);
-    border-radius: 15px;
     background-color: rgb(27, 157, 217);
     cursor: pointer;
     width: 50%;
@@ -102,7 +100,6 @@
   }
   #cancelButton {
     border: 1px solid rgb(66, 76, 87);
-    border-radius: 15px;
     background-color: rgb(217, 217, 217);
     cursor: pointer;
     height: 40px;

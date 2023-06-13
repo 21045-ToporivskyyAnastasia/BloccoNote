@@ -1,13 +1,17 @@
 <!-- Template del componente note-list -->
 <template id="note-list-template">
-    <div>
+    <div id="container">
       <ul class="note-list">
       <li v-for="note in notes" :key="note.id" class="note-item">
-        <h3 class="note-title">{{ note.title }}</h3>
-        <p class="note-content">{{ note.content }}</p>
-        <p class="note-date">Data: {{ note.date }}</p>
         <button class="remove-button" @click="confirmRemove(note)">x</button>
-        <button class="edit-button" @click="showModificaNota(note)">modifica</button>
+        <h3 class="note-title">
+          {{ note.title }}
+        </h3>
+        <p class="note-content">{{ note.content }}</p>
+        <p class="note-date">Data: {{ note.date }}
+          <button class="edit-button" @click="showModificaNota(note)">modifica</button>
+        </p>
+
       </li>
     </ul>
     <button id="addNote" @click="showAddNote" >+</button>
@@ -39,62 +43,74 @@
   * {
     color: black;
   }
+  #container {
+    justify-content: center;  
+  }
   .note-list {
-    max-width: 1000px;
-    margin-top: 150px;
+    margin-top: 0;
     background-color: white;
+    padding-top: 150px;
+    padding-left: 0; 
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .edit-button{
     background-color: rgb(27, 157, 217);
     border: none;
+    padding-bottom: 2px;
     font-size: 15px;
-    position: relative; 
-    bottom: 0;
-    right: -460px;
-    width: 13%;
-    border-radius: 10px;
+    position: absolute; 
+    right: 9.1%;
+    width: 80px;
+    position: flex;
   }
   .remove-button {
     background-color: rgb(27, 157, 217);
     height: 40px;
     width: 40px;
-    position: absolute;
-    right: 70px;
-    border-radius: 4752934756925602579257665629627564765827546276572652485px;
     border: none;
     font-size: 20px;
+    position: absolute;
+    right: 9.2%;
   }
   .note-item {
-    width: 600px;
+    width: 82%;
     height: auto;
     background-color: rgb(217, 217, 217);
-    padding: 10px;
-    border-radius: 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-top: 30px;
+    margin-bottom: 30px;
+    border: 1px solid rgb(66, 76, 87);
   }
   h3 {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    padding-bottom: 2px;
     word-wrap: break-word;
+    background-color: rgb(66, 76, 87);
+    color: white;
+    width: 100%;
+    text-align: center;
+    justify-content: space-between;
+    padding-right: 45px;
   }
   .note-content {
     font-size: 16px;
     white-space: pre-wrap;
     word-wrap: break-word;
+    padding-left: 2%;
+    padding-right: 2%;
   }
   .note-date {
     font-size: 12.5px;
     margin-top: 8px;
     font-weight: bold;
-  }
-  .note-list{
-    margin-left: 29px;
-    margin-top: 180px;
+    padding-left: 2%;
   }
   #addNote {
     border: 1.9px solid rgb(0, 0, 0);
