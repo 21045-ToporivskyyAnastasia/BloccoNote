@@ -43,7 +43,6 @@
     cursor: pointer;
     width: 50%;
     height: 40px;
-    width: 50%;
     color: black;
     font-size: 18px;
   }
