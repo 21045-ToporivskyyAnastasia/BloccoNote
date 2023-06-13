@@ -7,7 +7,7 @@
         <h3 class="note-title">
           {{ note.title }}
         </h3>
-        <p class="note-content" @click="showModificaNota(note)">{{ truncateText(note.content, 250) }}
+        <p class="note-content" @click="showModificaNota(note)">{{ truncateText(note.content, 200) }}
         </p>
         <p class="note-date" @click="showModificaNota(note)">Data: {{ note.date }}
         </p>
@@ -35,14 +35,15 @@
         confirmRemove(id) {
           this.$emit('confirm-remove', id);
         },
+        //metodo per per limitare la visualizzazione dei caratteri nella schermata principale
         truncateText(text, limit) {
-      if (text.length > limit) {
-        return text.slice(0, limit) + '...';
-      } else {
-        return text;
-      }
-          },
-        },
+          if (text.length > limit) {
+            return text.slice(0, limit) + '...';
+          } else {
+            return text;
+          }
+              },
+            },  
       };
   
   </script>
