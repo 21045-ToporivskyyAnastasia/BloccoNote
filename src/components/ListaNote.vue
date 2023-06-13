@@ -57,17 +57,6 @@
     flex-direction: column;
     align-items: center;
   }
-
-  .edit-button{
-    background-color: rgb(27, 157, 217);
-    border: none;
-    padding-bottom: 2px;
-    font-size: 15px;
-    position: absolute; 
-    right: 9.1%;
-    width: 80px;
-    position: flex;
-  }
   .remove-button {
     background-color: rgb(27, 157, 217);
     height: 40px;
@@ -75,7 +64,7 @@
     border: none;
     font-size: 20px;
     position: absolute;
-    right: 9.2%;
+    right: 9%;
   }
   .note-item {
     width: 82%;
@@ -86,6 +75,7 @@
     justify-content: space-between;
     margin-bottom: 30px;
     border: 1px solid rgb(66, 76, 87);
+    cursor: pointer;
   }
   h3 {
     font-size: 24px;
