@@ -39,7 +39,6 @@
   }
   #confirmButton {
     border: 1px solid rgb(66, 76, 87);
-    border-radius: 15px;
     background-color: rgb(27, 157, 217);
     cursor: pointer;
     width: 50%;
@@ -50,7 +49,6 @@
   }
   #cancelButton {
     border: 1px solid rgb(66, 76, 87);
-    border-radius: 15px;
     background-color: rgb(217, 217, 217);
     cursor: pointer;
     height: 40px;
@@ -77,7 +75,6 @@
     left: 135px;
     width: 480px;
     background-color: rgb(66, 76, 87);
-    border-radius: 10px;
     padding: 10px;
     flex-direction: column;
   }

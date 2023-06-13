@@ -163,20 +163,24 @@ export default {
 </script>
 <!--design del blocco note con css-->
 <style>
-* {
-  max-width: 750px;
+html {
+  width: 100%;
+  height: 100%;
 }
 #app {
-  width: 750px;
+  width: 100%;
+  height: 0;
   padding: 0;
   margin: 0;
 }
 body {
   background-color: white;
-  width: 750px;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
 }
 header {
-  width: 750px;
+  width: 100%;
   font-weight: bold;
   padding-bottom: 5px;
   font-size: 60px;
