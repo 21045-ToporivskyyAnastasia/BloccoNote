@@ -178,9 +178,8 @@ body {
 header {
   width: 750px;
   font-weight: bold;
-  padding-bottom: 25px;
-  margin-bottom: 8px;
-  font-size: 75px;
+  padding-bottom: 5px;
+  font-size: 60px;
   color: white;
   background-color: rgb(66, 76, 87);
   position: fixed;

@@ -3,9 +3,9 @@
     <div class="modal">
       <div class="modal-content">
         <form @submit.prevent="onSubmit" class="form-group">
-          <textarea id="newTitle" v-model="editedTitle" placeholder="Inserisci titolo"></textarea>
+          <textarea id="newTitle" v-model="editedTitle" placeholder="Inserisci titolo" required></textarea>
           <br>
-          <textarea id="newContent" v-model="editedContent" placeholder="Inserisci testo"></textarea>
+          <textarea id="newContent" v-model="editedContent" placeholder="Inserisci testo" required></textarea>
           <br>
           
           <div class="modal-buttons">
