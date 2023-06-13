@@ -2,16 +2,15 @@
 <template id="note-list-template">
     <div id="container">
       <ul class="note-list">
-      <li v-for="note in notes" :key="note.id" class="note-item">
+      <li v-for="note in notes" :key="note.id" class="note-item" >
         <button class="remove-button" @click="confirmRemove(note)">x</button>
         <h3 class="note-title">
           {{ note.title }}
         </h3>
-        <p class="note-content">{{ note.content }}
-          <button class="expand-button" @click="expandTest">↓</button>
+        <p class="note-content" @click="showModificaNota(note)">{{ note.content }}
         </p>
-        <p class="note-date">Data: {{ note.date }}
-          <button class="edit-button" @click="showModificaNota(note)">Modifica</button>
+        <p class="note-date" @click="showModificaNota(note)">Data: {{ note.date }}
+         <!-- <button class="edit-button" @click="showModificaNota(note)">Visualizza</button>-->
         </p>
 
       </li>
@@ -37,8 +36,9 @@
         confirmRemove(id) {
           this.$emit('confirm-remove', id);
         },
-      },
-  }
+        },
+      };
+  
   </script>
   <!--design della schermata principale con tutte le note con css-->
 <style scoped>

@@ -76,11 +76,13 @@
     background-color: rgb(66, 76, 87);
     padding: 30px;
     position: fixed;
-    top: 150px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 50px;
+    margin-top: 3%;
   }
   .modal-buttons {
     padding: 10px 20px;
@@ -93,18 +95,18 @@
     border: 1px solid rgb(66, 76, 87);
     background-color: rgb(27, 157, 217);
     cursor: pointer;
-    width: 50%;
+    width: 49%;
     height: 40px;
-    width: 50%;
     color: black;
     font-size: 18px;
+    margin-right: 2%;
   }
   #cancelButton {
     border: 1px solid rgb(66, 76, 87);
     background-color: rgb(217, 217, 217);
     cursor: pointer;
     height: 40px;
-    width: 50%;
+    width: 49%;
     color: black;
     font-size: 18px;
   }

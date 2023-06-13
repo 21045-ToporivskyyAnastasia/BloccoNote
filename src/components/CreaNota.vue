@@ -53,65 +53,64 @@
   * {
     color: black;
   }
-  .create-note-modal-template{
-    align-items: center;
-  }
   textarea {
     font-size: 24px;
   }
   #newContent {
-    height: 90%;
-    width: 100%;
+    height: 350px;
+    width: 605px;
     background-color: rgb(66, 76, 87);
     color: white;
     resize: none;
   }
   #newTitle {
-    min-height: 50px;
-    height: 10%;
-    width: 100%;
+    height: 50px;
+    width: 605px;
     background-color: rgb(66, 76, 87);
     color: white;
     resize: none;
   }
-  .form-group {
-    height: 85%;
-    width: 100%;
-  }
-  .modal-content {
-    height: 100%;
-    width: 100%;
-  }
   .modal {
-    width: 80%;
-    height: 70%;
+    width: 650px;
     background-color: rgb(66, 76, 87);
-    padding: 2%;
+    padding: 30px;
     position: fixed;
-    top: 150px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3%;
+  }
+  .flex{
+    display: flex;
+    justify-content: center;
     align-items: center;
   }
   .modal-buttons {
+    padding: 10px 20px;
     font-size: 30px;
     width: 100%;
     color: white;
+    margin-top: 10px;
   }
   #submitButton {
     border: 1px solid rgb(66, 76, 87);
     background-color: rgb(27, 157, 217);
     cursor: pointer;
-    width: 49.5%;
-    height: 100%;
+    width: 49%;
+    height: 40px;
     color: black;
     font-size: 18px;
-    margin-right: 1%;
+    margin-right: 2%;
   }
   #cancelButton {
     border: 1px solid rgb(66, 76, 87);
     background-color: rgb(217, 217, 217);
     cursor: pointer;
-    height: 100%;
-    width: 49.5%;
+    height: 40px;
+    width: 49%;
     color: black;
     font-size: 18px;
   }
