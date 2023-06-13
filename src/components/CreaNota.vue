@@ -83,11 +83,7 @@
     align-items: center;
     margin-top: 3%;
   }
-  .flex{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+
   .modal-buttons {
     padding: 10px 20px;
     font-size: 30px;
