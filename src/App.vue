@@ -1,5 +1,8 @@
 <template>
-  <header>Blocco Note</header>
+  <header>Blocco Note</header>  
+  <button @click="toggleDashboardMode">
+    {{ isPrivate ? 'Passa a dashboard pubblica' : 'Passa a dashboard privata' }}
+  </button>
   <ListaNote
     @add-note="showCreateNote = true"
     @modifica-nota="openeditpopup"
@@ -48,6 +51,7 @@ export default {
       showRemoveNote: false,
       notes: [],
       lastclickedNote: null,
+      isPrivate:true,
     };
   },
   beforeMount() {
@@ -146,12 +150,19 @@ export default {
     },
     //metodo per aggiungere una nota
     addNote(notem) {
+      sessionStorage.setItem('operatorID', '1');
+      sessionStorage.setItem('operatorName', 'Mario');
+      sessionStorage.setItem('operatorSurname', 'Rossi');
       const note = {
         id: notem.id,
         title: notem.title,
         content: notem.content,
         date: ""+notem.date.getDate().toString().padStart(2, '0')+"-"+(notem.date.getMonth() + 1).toString().padStart(2, '0')+"-"+notem.date.getFullYear(),
+        operatorID:'',
+        operatorName:'',
+        operatorSurname:'',
       };
+      
       this.notes.unshift(note);
       this.showCreateNote = false;
       this.showModificaNote = false;
@@ -191,5 +202,11 @@ header {
   left: 0;
   position: absolute;
   text-align: center;
+}
+button{
+  position:fixed;
+  margin-top: 4%;
+  align-items:right;
+  margin-left:4%;
 }
 </style>
