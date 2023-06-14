@@ -41,6 +41,11 @@ export default {
     RimuoviNota,
     ModificaNota,
   },
+  mounted(){
+    sessionStorage.setItem('operatorID', '1');
+    sessionStorage.setItem('operatorName', 'efrgtnhtrghan');
+    sessionStorage.setItem('operatorSurname', 'Franco');
+  },
   data() {
     return {
       showModificaNote: false,
@@ -151,6 +156,9 @@ export default {
         title: notem.title,
         content: notem.content,
         date: ""+notem.date.getDate().toString().padStart(2, '0')+"-"+(notem.date.getMonth() + 1).toString().padStart(2, '0')+"-"+notem.date.getFullYear(),
+        operatorID: sessionStorage.getItem("operatorID"),
+        operatorName: sessionStorage.getItem("operatorName"),
+        operatorSurname: sessionStorage.getItem("operatorSurname"),
       };
       this.notes.unshift(note);
       this.showCreateNote = false;

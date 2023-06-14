@@ -26,6 +26,7 @@
           newTitle: '',
           newContent: '',
           newDate: '',
+
         };
     },
     methods: {

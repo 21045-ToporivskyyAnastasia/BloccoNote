@@ -6,7 +6,7 @@
         <button class="remove-button" @click="confirmRemove(note)">x</button>
         <h3 class="note-title">{{ note.title }}</h3>
         <p class="note-content" @click="showModificaNota(note)">{{ truncateText(note.content, 200) }}</p>
-        <p class="note-date" @click="showModificaNota(note)">Data: {{ note.date }}</p>
+        <p class="note-date" @click="showModificaNota(note)">Data: {{ note.date }}, {{ note.operatorName }} {{ note.operatorSurname }}</p>
       </li>
     </ul>
     <button id="addNote" @click="showAddNote" >+</button>
@@ -15,6 +15,10 @@
   
   <script>
   export default{
+    data() {
+    return {
+      };
+    },
     name: "ListaNote",
     props: ['notes'],
     methods: {
