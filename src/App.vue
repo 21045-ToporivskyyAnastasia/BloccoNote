@@ -5,7 +5,6 @@
     @modifica-nota="openeditpopup"
     @confirm-remove="openremovepopup"
     :notes="notes"
-    @expand-text="expandText"
   ></ListaNote>
   <RimuoviNota
     v-if="showRemoveNote"

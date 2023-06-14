@@ -5,10 +5,8 @@
       <li v-for="note in notes" :key="note.id" class="note-item" >
         <button class="remove-button" @click="confirmRemove(note)">x</button>
         <h3 class="note-title">{{ note.title }}</h3>
-        <p class="note-content" @click="showModificaNota(note)">{{ note.content }}
-        </p>
-        <p class="note-date" @click="showModificaNota(note)">Data: {{ note.date }}
-        </p>
+        <p class="note-content" @click="showModificaNota(note)">{{ truncateText(note.content, 200) }}</p>
+        <p class="note-date" @click="showModificaNota(note)">Data: {{ note.date }}</p>
       </li>
     </ul>
     <button id="addNote" @click="showAddNote" >+</button>
@@ -32,11 +30,19 @@
         confirmRemove(id) {
           this.$emit('confirm-remove', id);
         },
-        },
+        //metodo per per limitare la visualizzazione dei caratteri nella schermata principale
+        truncateText(text, limit) {
+          if (text.length > limit) {
+            return text.slice(0, limit) + '...';
+          } else {
+            return text;
+          }
+              },
+            },  
       };
   
   </script>
-  <!--design della schermata principale con tutte le note con css-->
+  <!--design della schermata principale con tutte le note-->
 <style scoped>
   * {
     color: black;
