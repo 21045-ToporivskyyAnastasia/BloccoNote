@@ -4,15 +4,11 @@
       <ul class="note-list">
       <li v-for="note in notes" :key="note.id" class="note-item" >
         <button class="remove-button" @click="confirmRemove(note)">x</button>
-        <h3 class="note-title">
-          {{ note.title }}
-        </h3>
+        <h3 class="note-title">{{ note.title }}</h3>
         <p class="note-content" @click="showModificaNota(note)">{{ note.content }}
         </p>
         <p class="note-date" @click="showModificaNota(note)">Data: {{ note.date }}
-         <!-- <button class="edit-button" @click="showModificaNota(note)">Visualizza</button>-->
         </p>
-
       </li>
     </ul>
     <button id="addNote" @click="showAddNote" >+</button>
@@ -66,6 +62,7 @@
     font-size: 20px;
     position: absolute;
     right: 9%;
+    cursor: pointer;
   }
   .note-item {
     width: 82%;
