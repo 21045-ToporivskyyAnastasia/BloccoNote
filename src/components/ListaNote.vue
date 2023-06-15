@@ -2,10 +2,16 @@
 <template id="note-list-template">
   <div id="container">
     <ul class="note-list">
-    <li v-for="note in notes" :key="note.id" class="note-item" >
+    <li v-for="note in noteVisibili" :key="note.id" class="note-item" >
+
       <button class="remove-button" @click="confirmRemove(note)">x</button>
-      <h3 class="note-title">{{ note.title }}</h3>
-      <p class="note-content" @click="showModificaNota(note)">{{ truncateText(note.content, 200) }}</p>
+      <h3 class="note-title">
+        <button class="makePublic" @click="HideShowNote(note)">
+        ->
+        </button>{{ note.title }}
+      </h3>
+      <p class="note-content" @click="showModificaNota(note)">{{ truncateText(note.content, 200) }} 
+      </p>
       <p class="note-date" @click="showModificaNota(note)">Data: {{ note.date }}, {{ note.operatorName }} {{ note.operatorSurname }}</p>
     </li>
   </ul>
@@ -19,13 +25,21 @@ export default{
   return {
     };
   },
+  computed: {
+    noteVisibili(){
+      return this.notes.filter(n => n.view);
+    }
+  },
   name: "ListaNote",
   props: ['notes'],
   methods: {
       //Logica per modificare una nota schiacciando il pulsante "modifica"
       showModificaNota(note){
-          this.$emit('modifica-nota', note)
-        },
+        this.$emit('modifica-nota', note)
+      },
+      HideShowNote(note){
+        this.$emit("change-nota", note)
+      },
       //Logica per modificare una nota schiacciando il pulsante "+"
       showAddNote(){
         this.$emit('add-note');
@@ -71,7 +85,7 @@ export default{
   border: none;
   font-size: 20px;
   position: absolute;
-  right: 9%;
+  right: 9.1%;
   cursor: pointer;
 }
 .note-item {
@@ -83,7 +97,6 @@ export default{
   justify-content: space-between;
   margin-bottom: 30px;
   border: 1px solid rgb(66, 76, 87);
-  cursor: pointer;
 }
 h3 {
   font-size: 24px;
@@ -96,7 +109,8 @@ h3 {
   width: 100%;
   text-align: center;
   justify-content: space-between;
-  padding-right: 45px;
+  padding-right: 50px;
+  padding-left: 50px;
 }
 .note-content {
   font-size: 16px;
@@ -104,12 +118,14 @@ h3 {
   word-wrap: break-word;
   padding-left: 2%;
   padding-right: 2%;
+  cursor: pointer;
 }
 .note-date {
   font-size: 12.5px;
   margin-top: 8px;
   font-weight: bold;
   padding-left: 2%;
+  cursor: pointer;
 }
 #addNote {
   border: 1.9px solid rgb(0, 0, 0);
@@ -125,5 +141,15 @@ h3 {
   right: 30px;
   bottom: 30px;
   background-color: rgb(27, 157, 217);
+}
+.makePublic{
+  background-color: rgb(27, 157, 217);
+  height: 40px;
+  width: 40px;
+  border: none;
+  font-size: 20px;
+  position: absolute;
+  left: 9.2%;
+  cursor: pointer;
 }
 </style>

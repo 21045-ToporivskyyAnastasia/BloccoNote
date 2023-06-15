@@ -1,28 +1,15 @@
 <template>
-  <header>Blocco Note</header>
-  <div>
-    <ol>
-      <li v-for="x in notes">{{ x }}</li>
-    </ol>
-  </div>
-  <!--<div v-if="showPrivateNotes">
-  <button @click="showPrivateNotes=true" style="position:fixed;">Privata</button>
+  <header>Blocco Note
+    <button class="switchScreen" @click="changeGroup()"> {{ groups[gindex] }} </button>
+  </header>
+
   <ListaNote
     @add-note="showCreateNote = true"
     @modifica-nota="openeditpopup"
     @confirm-remove="openremovepopup"
+    @change-note="HideShowNote"
     :notes="notes"
   ></ListaNote>
-</div>
-<div v-else>
-  <button @click="showPrivateNotes=false" style="position:fixed;">Pubblica</button>
-  <ListaNote
-    @add-note="showCreateNote = true"
-    @modifica-nota="openeditpopup"
-    @confirm-remove="openremovepopup"
-    :notes="notes"
-  ></ListaNote>
-</div>-->
   <RimuoviNota
     v-if="showRemoveNote"
     :nota="lastclickedNote"
@@ -43,13 +30,14 @@
 </template>
 
 <script>
+
 //importazione dei componenti per la visualizzazione
 import CreaNota from "./components/CreaNota.vue";
 import ListaNote from "./components/ListaNote.vue";
 import RimuoviNota from "./components/RimuoviNota.vue";
 import ModificaNota from "./components/ModificaNota.vue";
 import axios from "axios";
-
+import { toRaw } from "vue";
 export default {
   name: "App",
   components: {
@@ -60,7 +48,7 @@ export default {
   },
   mounted(){
     sessionStorage.setItem('operatorID', '1');
-    sessionStorage.setItem('operatorName', 'efrgtnhtrghan');
+    sessionStorage.setItem('operatorName', 'ciao');
     sessionStorage.setItem('operatorSurname', 'Franco');
   },
   data() {
@@ -69,8 +57,9 @@ export default {
       showCreateNote: false,
       showRemoveNote: false,
       notes: [],
+      groups: ["Privato", "Pubblico"],
+      gindex: 0,
       lastclickedNote: null,
-      showPrivateNotes:false,
     };
   },
   beforeMount() {
@@ -79,7 +68,6 @@ export default {
     console.log(this.notes);
   },
   methods: {
-    
     //metodo write notes per permettere di leggere le note nel database
     async writeNotes() {
       let data = JSON.stringify({
@@ -148,6 +136,22 @@ export default {
       this.notes.splice(index, 1);
       this.writeNotes();
     },
+    changeGroup() {
+      if (this.gindex < this.groups.length - 1)
+      this.gindex += 1;
+      else this.gindex = 0;
+      this.notes.forEach(element => {
+        console.log(element);
+        if (element.groupped == this.groups[this.gindex]) {
+          element.view = true;
+        } else {
+          element.view = false;
+        }
+      });
+    },
+    HideShowNote(note) {
+      note.public = !note.public;
+    },
     //metodo per rimuovere la nota una volta confermato il controllo della rimozione
     removeNote(note) {
       const index = this.notes.findIndex(checkid);
@@ -178,6 +182,8 @@ export default {
         operatorID: sessionStorage.getItem("operatorID"),
         operatorName: sessionStorage.getItem("operatorName"),
         operatorSurname: sessionStorage.getItem("operatorSurname"),
+        view: true,
+        groupped: this.groups[this.gindex],
       };
       this.notes.unshift(note);
       this.showCreateNote = false;
@@ -218,5 +224,14 @@ header {
   left: 0;
   position: absolute;
   text-align: center;
+}
+.switchScreen {
+  position: fixed;
+  top: 0;
+  right: 20px;
+  background-color: rgb(27, 157, 217);
+  border:none;
+  font-size: 16px;
+  width: 100px;
 }
 </style>
