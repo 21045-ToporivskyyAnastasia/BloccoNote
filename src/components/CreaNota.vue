@@ -26,6 +26,7 @@ export default {
         newTitle: '',
         newContent: '',
         newDate: '',
+
       };
   },
   methods: {
