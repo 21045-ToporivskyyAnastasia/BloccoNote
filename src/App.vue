@@ -1,11 +1,28 @@
 <template>
   <header>Blocco Note</header>
+  <div>
+    <ol>
+      <li v-for="x in notes">{{ x }}</li>
+    </ol>
+  </div>
+  <!--<div v-if="showPrivateNotes">
+  <button @click="showPrivateNotes=true" style="position:fixed;">Privata</button>
   <ListaNote
     @add-note="showCreateNote = true"
     @modifica-nota="openeditpopup"
     @confirm-remove="openremovepopup"
     :notes="notes"
   ></ListaNote>
+</div>
+<div v-else>
+  <button @click="showPrivateNotes=false" style="position:fixed;">Pubblica</button>
+  <ListaNote
+    @add-note="showCreateNote = true"
+    @modifica-nota="openeditpopup"
+    @confirm-remove="openremovepopup"
+    :notes="notes"
+  ></ListaNote>
+</div>-->
   <RimuoviNota
     v-if="showRemoveNote"
     :nota="lastclickedNote"
@@ -53,6 +70,7 @@ export default {
       showRemoveNote: false,
       notes: [],
       lastclickedNote: null,
+      showPrivateNotes:false,
     };
   },
   beforeMount() {
@@ -61,6 +79,7 @@ export default {
     console.log(this.notes);
   },
   methods: {
+    
     //metodo write notes per permettere di leggere le note nel database
     async writeNotes() {
       let data = JSON.stringify({
@@ -160,7 +179,6 @@ export default {
         operatorName: sessionStorage.getItem("operatorName"),
         operatorSurname: sessionStorage.getItem("operatorSurname"),
       };
-      
       this.notes.unshift(note);
       this.showCreateNote = false;
       this.showModificaNote = false;
