@@ -1,7 +1,7 @@
 <template>
   <header>Blocco Note
-    <!--<button class="switchScreen" @click="changeGroup()"> {{ groups[gindex] }} </button>-->
-    <button class="groupScreen" @click="showGroups = true;">Gruppo: {{ groups[gindex] }}</button>
+    <p class="gruppo">Gruppo:</p>
+    <button class="groupScreen" @click="showGroups = true;">{{ groups[gindex] }}</button>
   </header>
 
   <ListaNote
@@ -69,7 +69,7 @@ export default {
       showRemoveNote: false,
       showGroups: false,
       notes: [],
-      groups: ["Privato", "Pubblico"],
+      groups: ["Privato", "Pubblico","Archiviati"],
       gindex: 0,
       lastclickedNote: null,
     };
@@ -290,9 +290,16 @@ header {
   position: absolute;
   text-align: center;
 }
-.switchScreen {
+.gruppo{
   position: fixed;
-  top: 0;
+  top:0;
+  right: 8.5%;
+  font-size: 16px;
+
+}
+.groupScreen {
+  position: fixed;
+  top: 25px;
   right: 20px;
   background-color: rgb(27, 157, 217);
   border:none;

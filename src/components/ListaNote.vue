@@ -7,7 +7,9 @@
       <h3 class="note-title">{{ note.title }}</h3>
       <p class="note-content" @click="showModificaNota(note)">{{ truncateText(note.content, 200) }} 
       </p>
-      <p class="note-date" @click="showModificaNota(note)">Data: {{ note.date }}, {{ note.operatorName }} {{ note.operatorSurname }}</p>
+      <p class="note-date" @click="showModificaNota(note)">Data: {{ note.date }}, {{ note.operatorName }} {{ note.operatorSurname }}
+        <img src="/src/images/266146.png" alt="">
+      </p>
     </li>
   </ul>
   <button id="addNote" @click="showAddNote" >+</button>
@@ -62,6 +64,13 @@ export default{
 }
 #container {
   justify-content: center;  
+}
+img{
+  position: fixed;
+  width: 25px;
+  height: 25px;
+  right:10%;
+  transform: translate(0%, -10px);
 }
 .note-list {
   margin-top: 0;
