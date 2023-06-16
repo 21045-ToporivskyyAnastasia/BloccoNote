@@ -7,9 +7,9 @@
     @add-note="showCreateNote = true"
     @modifica-nota="openeditpopup"
     @confirm-remove="openremovepopup"
-    @change-note="HideShowNote"
+    @change-nota="HideShowNote"
     :notes="notes"
-  ></ListaNote>
+  />
   <RimuoviNota
     v-if="showRemoveNote"
     :nota="lastclickedNote"
@@ -27,6 +27,10 @@
     @modifica-note="modificaNota"
     @cancel="showModificaNote = false"
   />
+  <Gruppi
+    v-if="showGroups"
+    
+  />
 </template>
 
 <script>
@@ -36,6 +40,7 @@ import CreaNota from "./components/CreaNota.vue";
 import ListaNote from "./components/ListaNote.vue";
 import RimuoviNota from "./components/RimuoviNota.vue";
 import ModificaNota from "./components/ModificaNota.vue";
+import Gruppi from "./components/Gruppi.vue";
 import axios from "axios";
 import { toRaw } from "vue";
 export default {
@@ -45,6 +50,7 @@ export default {
     ListaNote,
     RimuoviNota,
     ModificaNota,
+    Gruppi,
   },
   mounted(){
     sessionStorage.setItem('operatorID', '1');
@@ -56,6 +62,7 @@ export default {
       showModificaNote: false,
       showCreateNote: false,
       showRemoveNote: false,
+      showGroups: false,
       notes: [],
       groups: ["Privato", "Pubblico"],
       gindex: 0,
@@ -151,6 +158,8 @@ export default {
     },
     HideShowNote(note) {
       note.public = !note.public;
+      this.showGroups=true;
+      console.log("ciao");
     },
     //metodo per rimuovere la nota una volta confermato il controllo della rimozione
     removeNote(note) {

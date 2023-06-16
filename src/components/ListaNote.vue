@@ -6,9 +6,7 @@
 
       <button class="remove-button" @click="confirmRemove(note)">x</button>
       <h3 class="note-title">
-        <button class="makePublic" @click="HideShowNote(note)">
-        ->
-        </button>{{ note.title }}
+        <button class="makePublic" @click="HideShowNote(note)">-></button>{{ note.title }}
       </h3>
       <p class="note-content" @click="showModificaNota(note)">{{ truncateText(note.content, 200) }} 
       </p>
