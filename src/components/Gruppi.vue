@@ -1,0 +1,148 @@
+<template>
+  <div class="modal" >
+    <div class="modal-content">
+      <h2>No</h2>
+      <button v-if="ShowButton" class="createGroups" @click="showArea=true; ShowButton=false">+</button>
+      <form action="#">
+        <label for="lang"> Gruppi: </label>
+        <select name="groups" id="lang">
+          <option value="" v-for="g in groupss" :value="g"> {{ g }} </option>
+        </select>
+      </form>
+      <textarea v-model="groupName" v-if="showArea" name="newGroup" maxlength="50" required></textarea>
+      <button v-if="showArea" class="addGroup" @click="addGroup(); showArea=false; ShowButton=true" type="submit">Aggiungi</button>
+      <div class="modal-buttons">
+        <button id="submitButton" @click="save" >Salva</button>
+        <button id="cancelButton" @click="cancel" >Annulla</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default{
+  props: ["groupss", "showArea", "ShowButton"],
+  data() {
+      return {
+        groupName: '',
+      };
+  },
+  methods:{
+    addGroup(){
+      this.$emit('add-group', {
+        groupName: this.groupName.trim(),
+      });
+      this.groupName = '';
+    },
+    save() {
+        // Logica per creare un gruppo
+        this.$emit('save-groups');
+      },
+      cancel() {
+        // Logica per eliminare un gruppo
+        this.$emit('cancel');
+      },
+      }
+    }
+
+</script>
+
+<style scoped>
+* {
+  color: black;
+}
+.addGroup{
+  position: fixed;
+  background-color: rgb(27, 157, 217);
+  cursor: pointer;
+  top:60%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  height: 40px;
+  color: black;
+  font-size: 18px;
+}
+textarea{
+  position: fixed;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+}
+.createGroups{
+  position: fixed;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  width: 15%;
+  height: 15%;
+  border: none;
+  font-size: 40px;
+  background-color: rgb(27, 157, 217);
+}
+label {
+  width: 200 px;  
+  color: white;
+}
+select {
+  width: 200px;
+  size: 302px;
+}
+option {
+  width: 200px;
+  size: 16px;
+}
+.modal-content {
+  width: 92%;
+  color: white;
+}
+.modal {
+  width: 500px;
+  height: 500px;
+  background-color: rgb(66, 76, 87);
+  padding: 30px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3%;
+}
+h2 {
+  font-weight: bold;
+  font-size: 30px;
+  color: white;
+  text-align: center;
+}
+.modal-buttons {
+  padding-bottom: 5px;
+  font-size: 30px;
+  width: 100%;
+  color: white;
+  margin-top: 10px;
+  position: relative;
+  top: 310px;
+
+}
+#submitButton {
+  border: 1px solid rgb(66, 76, 87);
+  background-color: rgb(27, 157, 217);
+  cursor: pointer;
+  width: 49%;
+  height: 40px;
+  color: black;
+  font-size: 18px;
+  margin-right: 2%;
+}
+#cancelButton {
+  border: 1px solid rgb(66, 76, 87);
+  background-color: rgb(217, 217, 217);
+  cursor: pointer;
+  height: 40px;
+  width: 49%;
+  color: black;
+  font-size: 18px;
+}
+</style>

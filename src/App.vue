@@ -1,15 +1,15 @@
 <template>
   <header>Blocco Note
     <button class="switchScreen" @click="changeGroup()"> {{ groups[gindex] }} </button>
+    <button class="groupScreen" @click="showGroups = true">Gruppo: {{ groups[gindex] }}</button>
   </header>
 
   <ListaNote
     @add-note="showCreateNote = true"
     @modifica-nota="openeditpopup"
     @confirm-remove="openremovepopup"
-    @change-note="HideShowNote"
     :notes="notes"
-  ></ListaNote>
+  />
   <RimuoviNota
     v-if="showRemoveNote"
     :nota="lastclickedNote"
@@ -27,6 +27,14 @@
     @modifica-note="modificaNota"
     @cancel="showModificaNote = false"
   />
+  <Gruppi
+    v-if="showGroups"
+    :groupss="groups"
+    @cancel="showGroups=false"
+    :showArea = "false"
+    :ShowButton = "true"
+    @add-group="addGroup"
+  />
 </template>
 
 <script>
@@ -36,6 +44,7 @@ import CreaNota from "./components/CreaNota.vue";
 import ListaNote from "./components/ListaNote.vue";
 import RimuoviNota from "./components/RimuoviNota.vue";
 import ModificaNota from "./components/ModificaNota.vue";
+import Gruppi from "./components/Gruppi.vue";
 import axios from "axios";
 import { toRaw } from "vue";
 export default {
@@ -45,6 +54,7 @@ export default {
     ListaNote,
     RimuoviNota,
     ModificaNota,
+    Gruppi,
   },
   mounted(){
     sessionStorage.setItem('operatorID', '7');
@@ -56,6 +66,7 @@ export default {
       showModificaNote: false,
       showCreateNote: false,
       showRemoveNote: false,
+      showGroups: false,
       notes: [],
       groups: ["Privato", "Pubblico"],
       gindex: 0,
@@ -118,6 +129,12 @@ export default {
       let risposta = await axios.request(config);
       this.notes=JSON.parse(risposta.data.data.data).notes;
     },
+    addGroup(gruppi){
+      const groups = {
+        groupName: gruppi.groupName,
+      }
+      this.groups.push(gruppi.groupName);
+    },
     //metodo per modificare una nota 
     modificaNota(notem, vecchiaNota) {
       const note = {
@@ -148,9 +165,6 @@ export default {
           element.view = false;
         }
       });
-    },
-    HideShowNote(note) {
-      note.public = !note.public;
     },
     //metodo per rimuovere la nota una volta confermato il controllo della rimozione
     removeNote(note) {
