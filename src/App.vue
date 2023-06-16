@@ -47,9 +47,9 @@ export default {
     ModificaNota,
   },
   mounted(){
-    sessionStorage.setItem('operatorID', '1');
-    sessionStorage.setItem('operatorName', 'ciao');
-    sessionStorage.setItem('operatorSurname', 'Franco');
+    sessionStorage.setItem('operatorID', '7');
+    sessionStorage.setItem('operatorName', 'Boe');
+    sessionStorage.setItem('operatorSurname', 'Jiden');
   },
   data() {
     return {
