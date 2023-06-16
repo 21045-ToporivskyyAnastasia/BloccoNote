@@ -1,7 +1,7 @@
 <template>
   <header>Blocco Note
-    <button class="switchScreen" @click="changeGroup()"> {{ groups[gindex] }} </button>
-    <button class="groupScreen" @click="showGroups = true">Gruppo: {{ groups[gindex] }}</button>
+    <!--<button class="switchScreen" @click="changeGroup()"> {{ groups[gindex] }} </button>-->
+    <button class="groupScreen" @click="showGroups = true;">Gruppo: {{ groups[gindex] }}</button>
   </header>
 
   <ListaNote
@@ -34,6 +34,7 @@
     :showArea = "false"
     :ShowButton = "true"
     @add-group="addGroup"
+    @save-groups="changeGroup"
   />
 </template>
 
@@ -165,6 +166,7 @@ export default {
           element.view = false;
         }
       });
+      this.showGroups= false;
     },
     //metodo per rimuovere la nota una volta confermato il controllo della rimozione
     removeNote(note) {

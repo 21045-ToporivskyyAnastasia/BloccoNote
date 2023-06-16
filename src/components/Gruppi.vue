@@ -6,7 +6,7 @@
       <form action="#">
         <label for="lang"> Gruppi: </label>
         <select name="groups" id="lang">
-          <option value="" v-for="g in groupss" :value="g"> {{ g }} </option>
+          <option v-for="g in groupss" :value="g"> {{ g }} </option>
         </select>
       </form>
       <textarea v-model="groupName" v-if="showArea" name="newGroup" maxlength="50" required></textarea>
