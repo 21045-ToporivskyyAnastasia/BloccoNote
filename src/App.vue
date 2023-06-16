@@ -30,6 +30,7 @@
   <Gruppi
     v-if="showGroups"
     :groupss="groups"
+    :gruppi="lastclickedGroup"
     @cancel="showGroups=false"
     :showArea = "false"
     :ShowButton = "true"
@@ -72,6 +73,7 @@ export default {
       groups: ["Privato", "Pubblico"],
       gindex: 0,
       lastclickedNote: null,
+      lastclickedGroup:null,
     };
   },
   beforeMount() {
@@ -290,7 +292,7 @@ header {
   position: absolute;
   text-align: center;
 }
-.switchScreen {
+.groupScreen {
   position: fixed;
   top: 0;
   right: 20px;

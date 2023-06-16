@@ -6,7 +6,7 @@
       <form action="#">
         <label for="lang"> Gruppi: </label>
         <select name="groups" id="lang">
-          <option v-for="g in groupss" :value="g"> {{ g }} </option>
+          <option value="" v-for="g in groupss" :value="g"> {{ g }} </option>
         </select>
       </form>
       <textarea v-model="groupName" v-if="showArea" name="newGroup" maxlength="50" required></textarea>
@@ -31,7 +31,9 @@ export default{
     addGroup(){
       this.$emit('add-group', {
         groupName: this.groupName.trim(),
-      });
+      },
+      this.groupss
+      );
       this.groupName = '';
     },
     save() {
