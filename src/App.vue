@@ -75,7 +75,9 @@ export default {
   },
   beforeMount() {
     this.notes = [];
+    this.groups = ["Privato", "Pubblico"];
     this.readNotes();
+    this.readGroups();
     console.log(this.notes);
   },
   methods: {
@@ -129,11 +131,58 @@ export default {
       let risposta = await axios.request(config);
       this.notes=JSON.parse(risposta.data.data.data).notes;
     },
+    async writeGroups(){
+      let data = JSON.stringify({
+        "appCode": "ONOINT-0001",
+        "dataName": "groups",
+        "dataValue": JSON.stringify({ groups: this.groups }),
+      });
+
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'http://64.227.120.171:7576/grpc/SetONOAppData',
+        headers: { 
+          'Content-Type': 'application/json', 
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6LTEsImlzcyI6Im9ub1NlcnZlciIsInN1YiI6InNvbWVvbmUiLCJleHAiOjE2ODYzMDQwMDksIm5iZiI6MTY4NjIxOTQwOSwiaWF0IjoxNjg2MjE3NjA5LCJqdGkiOiJvbm8tc2VydmVyIn0.VtfbfToSXSekUVEKtViannwS2O4MUdkLKlQsqpuOnUY'
+        },
+        data : data
+      };
+
+      axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },
+    async readGroups(){
+      let data = JSON.stringify({
+        "appCode": "ONOINT-0001",
+        "dataName": "groups"
+      });
+
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'http://64.227.120.171:7576/grpc/GetONOAppDataFromCode',
+        headers: { 
+          'Content-Type': 'application/json', 
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6LTEsImlzcyI6Im9ub1NlcnZlciIsInN1YiI6InNvbWVvbmUiLCJleHAiOjE2ODYzMDQwMDksIm5iZiI6MTY4NjIxOTQwOSwiaWF0IjoxNjg2MjE3NjA5LCJqdGkiOiJvbm8tc2VydmVyIn0.VtfbfToSXSekUVEKtViannwS2O4MUdkLKlQsqpuOnUY'
+        },
+        data : data
+      };
+
+      let risposta = await axios.request(config);
+      this.groups=JSON.parse(risposta.data.data.data).groups;
+    },
     addGroup(gruppi){
       const groups = {
         groupName: gruppi.groupName,
       }
       this.groups.push(gruppi.groupName);
+      this.writeGroups();
     },
     //metodo per modificare una nota 
     modificaNota(notem, vecchiaNota) {
