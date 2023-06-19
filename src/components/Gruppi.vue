@@ -8,6 +8,7 @@
         <select name="groups" id="lang">
           <option value="" v-for="g in groupss" :value="g"> {{ g }} </option>
         </select>
+        <button class="deleteGroup" @click="removeGroup">Rimuovi</button>
       </form>
       <textarea v-model="groupName" v-if="showArea" name="newGroup" maxlength="50" required></textarea>
       <button v-if="showArea" class="addGroup" @click="addGroup(); showArea=false; ShowButton=true" type="submit">Aggiungi</button>
@@ -28,6 +29,9 @@ export default{
       };
   },
   methods:{
+    removeGroup(){
+      this.$emit('remove-group')
+    },
     addGroup(){
       this.$emit('add-group', {
         groupName: this.groupName.trim(),

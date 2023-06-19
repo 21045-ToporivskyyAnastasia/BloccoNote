@@ -7,7 +7,9 @@
       <h3 class="note-title">{{ note.title }}</h3>
       <p class="note-content" @click="showModificaNota(note)">{{ truncateText(note.content, 200) }} 
       </p>
-      <p class="note-date" @click="showModificaNota(note)">Data: {{ note.date }}, {{ note.operatorName }} {{ note.operatorSurname }}</p>
+      <p class="note-date" @click="showModificaNota(note)">Data: {{ note.date }}, {{ note.operatorName }} {{ note.operatorSurname }}
+        <img class="modifica" src="/src/images/266146.png" alt="">
+      </p>
     </li>
   </ul>
   <button id="addNote" @click="showAddNote" >+</button>
@@ -16,10 +18,7 @@
 
 <script>
 export default{
-  data() {
-  return {
-    };
-  },
+  props: ["ShowSearchBar"],
   computed: {
     noteVisibili(){
       return this.notes.filter(n => n.view);
@@ -62,6 +61,13 @@ export default{
 }
 #container {
   justify-content: center;  
+}
+.modifica{
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right:10%;
+  transform: translate(0%, -10px);
 }
 .note-list {
   margin-top: 0;
@@ -136,5 +142,13 @@ h3 {
   right: 30px;
   bottom: 30px;
   background-color: rgb(27, 157, 217);
+}
+.search{
+  width: 25px;
+  height: 25px;
+  margin-bottom: 20px;
+  position: absolute;
+  top:0;
+  left:0;
 }
 </style>

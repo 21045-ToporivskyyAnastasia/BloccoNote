@@ -1,7 +1,7 @@
 <template>
   <header>Blocco Note
-    <!--<button class="switchScreen" @click="changeGroup()"> {{ groups[gindex] }} </button>-->
-    <button class="groupScreen" @click="showGroups = true;">Gruppo: {{ groups[gindex] }}</button>
+    <p class="gruppo">Gruppo:</p>
+      <button class="groupScreen" @click="showGroups = true;">{{ groups[gindex] }}</button>
   </header>
 
   <ListaNote
@@ -37,11 +37,15 @@
     @add-group="addGroup"
     @save-groups="changeGroup"
   />
+  <BarraRicerca 
+    @search-notes="filterNotes" 
+  />
 </template>
 
 <script>
 
 //importazione dei componenti per la visualizzazione
+import BarraRicerca from "./components/BarraRicerca.vue";
 import CreaNota from "./components/CreaNota.vue";
 import ListaNote from "./components/ListaNote.vue";
 import RimuoviNota from "./components/RimuoviNota.vue";
@@ -52,6 +56,7 @@ import { toRaw } from "vue";
 export default {
   name: "App",
   components: {
+    BarraRicerca,
     CreaNota,
     ListaNote,
     RimuoviNota,
@@ -70,7 +75,7 @@ export default {
       showRemoveNote: false,
       showGroups: false,
       notes: [],
-      groups: ["Privato", "Pubblico"],
+      groups: ["Seleziona gruppo","Privato", "Pubblico","Archiviati"],
       gindex: 0,
       lastclickedNote: null,
       lastclickedGroup:null,
@@ -78,12 +83,23 @@ export default {
   },
   beforeMount() {
     this.notes = [];
-    this.groups = ["Privato", "Pubblico"];
+    this.groups = ["Seleziona gruppo","Privato", "Pubblico","Archiviati"];
     this.readNotes();
     this.readGroups();
     console.log(this.notes);
   },
   methods: {
+    filterNotes(query) {
+      if (query === "") {
+        this.readNotes();
+      } else {
+        const lowerCaseQuery = query.toLowerCase();
+        this.notes = this.notes.filter((note) =>
+          note.title.toLowerCase().includes(lowerCaseQuery) ||
+          note.content.toLowerCase().includes(lowerCaseQuery)
+        );
+      }
+    },
     //metodo write notes per permettere di leggere le note nel database
     async writeNotes() {
       let data = JSON.stringify({
@@ -292,9 +308,16 @@ header {
   position: absolute;
   text-align: center;
 }
+.gruppo{
+  position: absolute;
+  top:0;
+  right: 8.5%;
+  font-size: 16px;
+
+}
 .groupScreen {
-  position: fixed;
-  top: 0;
+  position: absolute;
+  top: 25px;
   right: 20px;
   background-color: rgb(27, 157, 217);
   border:none;
