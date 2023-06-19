@@ -8,7 +8,7 @@
     @add-note="showCreateNote = true"
     @modifica-nota="openeditpopup"
     @confirm-remove="openremovepopup"
-    :notes="notes"
+    :notes="filteredNotes"
   />
   <RimuoviNota
     v-if="showRemoveNote"
@@ -79,6 +79,7 @@ export default {
       gindex: 0,
       lastclickedNote: null,
       lastclickedGroup:null,
+      query: ''
     };
   },
   beforeMount() {
@@ -88,17 +89,22 @@ export default {
     this.readGroups();
     console.log(this.notes);
   },
+  computed: {
+    filteredNotes() {
+      if (this.query === "") return this.notes;
+
+      const lowerCaseQuery = this.query.toLowerCase();
+
+      const newNotes = this.notes.filter((note) =>
+        note.title.toLowerCase().includes(lowerCaseQuery) ||
+        note.content.toLowerCase().includes(lowerCaseQuery) 
+      );
+      return newNotes;
+    }
+  },
   methods: {
     filterNotes(query) {
-      if (query === "") {
-        this.readNotes();
-      } else {
-        const lowerCaseQuery = query.toLowerCase();
-        this.notes = this.notes.filter((note) =>
-          note.title.toLowerCase().includes(lowerCaseQuery) ||
-          note.content.toLowerCase().includes(lowerCaseQuery)
-        );
-      }
+      this.query = query;
     },
     //metodo write notes per permettere di leggere le note nel database
     async writeNotes() {
@@ -205,14 +211,15 @@ export default {
     },
     //metodo per modificare una nota 
     modificaNota(notem, vecchiaNota) {
-      const note = {
-        id: notem.id,
-        title: notem.title,
-        content: notem.content,
-        date: ""+notem.date.getDate().toString().padStart(2, '0')+"-"+(notem.date.getMonth() + 1).toString().padStart(2, '0')+"-"+notem.date.getFullYear(),
-      };
+      let newNote = vecchiaNota;
+
+      newNote.id = notem.id;
+      newNote.title = notem.title;
+      newNote.content = notem.content;
+      newNote.date = ""+notem.date.getDate().toString().padStart(2, '0')+"-"+(notem.date.getMonth() + 1).toString().padStart(2, '0')+"-"+notem.date.getFullYear();
+
       this.showModificaNote = false;
-      this.notes.unshift(note);
+      this.notes.unshift(newNote);
       //cancellazione della vecchia nota che è stata modificata
       const index = this.notes.findIndex(checkid);
       function checkid(noter) {
