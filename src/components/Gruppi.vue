@@ -1,7 +1,7 @@
 <template>
   <div class="modal" >
     <div class="modal-content">
-      <h2>No</h2>
+      <h2>Gruppi</h2>
       <button v-if="ShowButton" class="createGroups" @click="showArea=true; ShowButton=false">+</button>
       <form action="#">
         <label for="lang"> Gruppi: </label>
@@ -31,7 +31,7 @@ export default{
   },
   methods:{
     removeGroup(){
-      this.$emit('remove-group')
+      this.$emit('remove-group',this.gruppoCorrente)
     },
     addGroup(){
       this.$emit('add-group', {
@@ -116,6 +116,7 @@ option {
   flex-direction: column;
   align-items: center;
   margin-top: 3%;
+  z-index: 123456789;
 }
 h2 {
   font-weight: bold;

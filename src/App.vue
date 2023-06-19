@@ -36,6 +36,7 @@
     :ShowButton = "true"
     @add-group="addGroup"
     @save-groups="changeGroup"
+    @remove-group="removeGroup"
   />
   <BarraRicerca 
     @search-notes="filterNotes" 
@@ -65,8 +66,8 @@ export default {
   },
   mounted(){
     sessionStorage.setItem('operatorID', '7');
-    sessionStorage.setItem('operatorName', 'Boe');
-    sessionStorage.setItem('operatorSurname', 'Jiden');
+    sessionStorage.setItem('operatorName', 'stash');
+    sessionStorage.setItem('operatorSurname', 'bro');
   },
   data() {
     return {
@@ -75,7 +76,7 @@ export default {
       showRemoveNote: false,
       showGroups: false,
       notes: [],
-      groups: ["Seleziona gruppo","Privato", "Pubblico","Archiviati"],
+      groups: ["Privato", "Pubblico"],
       gindex: 0,
       lastclickedNote: null,
       lastclickedGroup:null,
@@ -84,7 +85,7 @@ export default {
   },
   beforeMount() {
     this.notes = [];
-    this.groups = ["Seleziona gruppo","Privato", "Pubblico","Archiviati"];
+    this.groups = ["Privato", "Pubblico"];
     this.readNotes();
     this.readGroups();
     console.log(this.notes);
@@ -228,6 +229,7 @@ export default {
       this.notes.splice(index, 1);
       this.writeNotes();
     },
+    //cambia il gruppo selezionato 
     changeGroup(gruppo) {
       const  gruppoPointer = this.groups.find(g => g == gruppo);
       
@@ -242,6 +244,17 @@ export default {
         }
       });
       this.showGroups= false;
+    },
+    //rimuovi gruppo corrente
+    removeGroup(gruppo)
+    {
+      const  gruppoPointer = this.groups.find(g => g == gruppo);
+      console.log(gruppoPointer);
+      this.gindex = this.groups.indexOf(gruppoPointer);
+      
+      this.groups = this.groups.splice(gindex, 1);
+
+      this.writeNotes();
     },
     //metodo per rimuovere la nota una volta confermato il controllo della rimozione
     removeNote(note) {

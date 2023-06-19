@@ -85,6 +85,7 @@ textarea {
   flex-direction: column;
   align-items: center;
   margin-top: 3%;
+  z-index: 123456789;
 }
 .modal-buttons {
   padding: 10px 20px;
