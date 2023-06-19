@@ -250,10 +250,9 @@ export default {
     {
       const  gruppoPointer = this.groups.find(g => g == gruppo);
       console.log(gruppoPointer);
-      this.gindex = this.groups.indexOf(gruppoPointer);
-      
-      this.groups = this.groups.splice(gindex, 1);
-
+      this.groups = this.groups.filter(g => g!=gruppoPointer);
+      this.notes = this.notes.filter(n => n.groupped != gruppo);
+      this.writeGroups();
       this.writeNotes();
     },
     //metodo per rimuovere la nota una volta confermato il controllo della rimozione
