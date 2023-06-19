@@ -5,8 +5,8 @@
       <button v-if="ShowButton" class="createGroups" @click="showArea=true; ShowButton=false">+</button>
       <form action="#">
         <label for="lang"> Gruppi: </label>
-        <select name="groups" id="lang">
-          <option value="" v-for="g in groupss" :value="g"> {{ g }} </option>
+        <select name="groups" id="lang" v-model="gruppoCorrente">
+          <option  v-for="g in groupss" :value="g" :key="g"> {{ g }} </option>
         </select>
         <button class="deleteGroup" @click="removeGroup">Rimuovi</button>
       </form>
@@ -26,6 +26,7 @@ export default{
   data() {
       return {
         groupName: '',
+        gruppoCorrente: '',
       };
   },
   methods:{
@@ -42,7 +43,7 @@ export default{
     },
     save() {
         // Logica per creare un gruppo
-        this.$emit('save-groups');
+        this.$emit('save-groups',this.gruppoCorrente);
       },
       cancel() {
         // Logica per eliminare un gruppo

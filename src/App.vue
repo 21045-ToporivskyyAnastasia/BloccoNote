@@ -228,10 +228,11 @@ export default {
       this.notes.splice(index, 1);
       this.writeNotes();
     },
-    changeGroup() {
-      if (this.gindex < this.groups.length - 1)
-      this.gindex += 1;
-      else this.gindex = 0;
+    changeGroup(gruppo) {
+      const  gruppoPointer = this.groups.find(g => g == gruppo);
+      
+      this.gindex = this.groups.indexOf(gruppoPointer);
+
       this.notes.forEach(element => {
         console.log(element);
         if (element.groupped == this.groups[this.gindex]) {
