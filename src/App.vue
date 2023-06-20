@@ -66,13 +66,14 @@ export default {
     Gruppi,
   },
   mounted(){
-    sessionStorage.setItem('operatorID', '2');
-    sessionStorage.setItem('operatorName', 'gianni');
-    sessionStorage.setItem('operatorSurname', 'diego');
+    sessionStorage.setItem('operatorID', '9');
+    sessionStorage.setItem('operatorName', 'sudman');
+    sessionStorage.setItem('operatorSurname', 'useheinz');
+
   },
   data() {
     return {
-      showModificaNote: false,
+      showModificaNote: false,  
       showCreateNote: false,
       showRemoveNote: false,
       showGroups: false,
@@ -81,7 +82,7 @@ export default {
       gindex: 0,
       lastclickedNote: null,
       lastclickedGroup:null,
-      query: ''
+      query: '',
     };
   },
   beforeMount() {
@@ -209,9 +210,10 @@ export default {
       const groups = {
         groupName: gruppi.groupName,
       }
-      if(this.groupName != "" && this.groupName != "Privato" && this.groupName != "Pubblico"){
+      if(this.groupName != "" || this.groupName != "Privato" || this.groupName != "Pubblico"){
       this.groups.push(gruppi.groupName);
-      this.writeGroups();}
+      this.writeGroups();
+      }
     },
     //metodo per modificare una nota 
     modificaNota(notem, vecchiaNota) {
@@ -240,8 +242,13 @@ export default {
 
       this.notes.forEach(element => {
         console.log(element);
-        if (element.groupped == this.groups[this.gindex] ) { 
-          element.view = true;
+        if (element.groupped == this.groups[this.gindex]) {
+          if (this.groups[this.gindex] != "Pubblico" && element.operatorID != sessionStorage.getItem("operatorID")) {
+            console.log("Entrato in entrambi gli IF");
+            element.view = false;
+          } else {
+            element.view = true;
+          }
         } else {
           element.view = false;
         }
@@ -253,7 +260,7 @@ export default {
     {
       const  gruppoPointer = this.groups.find(g => g == gruppo);
       console.log(gruppoPointer);
-      if(gruppoPointer!="Privato" && gruppoPointer!="Pubblico" )
+      if(gruppoPointer!="Privato" && gruppoPointer!="Pubblico")
       {this.groups = this.groups.filter(g => g!=gruppoPointer);
       this.notes = this.notes.filter(n => n.groupped != gruppo);
       this.writeGroups();
@@ -334,17 +341,17 @@ header {
 }
 .gruppo{
   position: absolute;
-  top:0;
-  right: 8.5%;
+  top: 0;
+  left: 80%;
   font-size: 16px;
 
 }
 .groupScreen {
   position: absolute;
   top: 25px;
-  right: 20px;
+  left: 80%;
   background-color: rgb(27, 157, 217);
-  border:none;
+  border: none;
   font-size: 16px;
   width: 100px;
 }
