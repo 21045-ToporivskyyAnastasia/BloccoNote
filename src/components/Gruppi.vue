@@ -11,8 +11,8 @@
         </select>
         <button class="deleteGroup" @click.prevent="removeGroup">Rimuovi</button>
       </form>
-      <textarea v-model="groupName" v-if="showArea" name="newGroup" maxlength="50" required></textarea>
-      <textarea v-model="groupName" v-if="showAreaPermission" name="Permission" maxlength="50" required></textarea>
+      <textarea v-model="groupName" v-if="showArea" name="newGroup" maxlength="50" required placeholder="Nome del gruppo..."></textarea>
+      <textarea v-model="groupName" v-if="showAreaPermission" name="Permission" maxlength="50" required placeholder="Inserisci nome utente..."></textarea>
       <button v-if="showArea" class="addGroup" @click="addGroup(); showArea=false; ShowButton=true" type="submit">Aggiungi</button>
       <button v-if="showArea" class="indietro" @click="showArea=false; ShowButton=true" type="submit">Indietro</button>
       <button v-if="showAreaPermission" class="addGroup" @click="showAreaPermission=false; ShowButton=true" type="submit">Aggiungi</button>
@@ -68,9 +68,10 @@ export default{
   background-color: rgb(27, 157, 217);
   cursor: pointer;
   top:60%;
-  left:40%;
+  left:39%;
   transform: translate(-50%, -50%);
   width: 20%;
+  border:none;
   height: 40px;
   color: black;
   font-size: 18px;
@@ -80,7 +81,8 @@ export default{
   background-color: rgb(217, 217, 217);
   cursor: pointer;
   top:60%;
-  left:60%;
+  left:61%;
+  border:none;
   transform: translate(-50%, -50%);
   width: 20%;
   height: 40px;
@@ -186,5 +188,7 @@ h2 {
 }
 .deleteGroup{
   background-color: rgb(27, 157, 217);
+  cursor: pointer;
+  border:none;
 }
 </style>

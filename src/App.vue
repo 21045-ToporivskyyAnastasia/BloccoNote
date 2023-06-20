@@ -66,9 +66,9 @@ export default {
     Gruppi,
   },
   mounted(){
-    sessionStorage.setItem('operatorID', '7');
-    sessionStorage.setItem('operatorName', 'stash');
-    sessionStorage.setItem('operatorSurname', 'bro');
+    sessionStorage.setItem('operatorID', '2');
+    sessionStorage.setItem('operatorName', 'gianni');
+    sessionStorage.setItem('operatorSurname', 'diego');
   },
   data() {
     return {
@@ -209,7 +209,7 @@ export default {
       const groups = {
         groupName: gruppi.groupName,
       }
-      if(groupName != ""){
+      if(this.groupName != "" && this.groupName != "Privato" && this.groupName != "Pubblico"){
       this.groups.push(gruppi.groupName);
       this.writeGroups();}
     },
@@ -240,7 +240,7 @@ export default {
 
       this.notes.forEach(element => {
         console.log(element);
-        if (element.groupped == this.groups[this.gindex]) {
+        if (element.groupped == this.groups[this.gindex] ) { 
           element.view = true;
         } else {
           element.view = false;
