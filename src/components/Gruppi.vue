@@ -14,7 +14,9 @@
       <textarea v-model="groupName" v-if="showArea" name="newGroup" maxlength="50" required></textarea>
       <textarea v-model="groupName" v-if="showAreaPermission" name="Permission" maxlength="50" required></textarea>
       <button v-if="showArea" class="addGroup" @click="addGroup(); showArea=false; ShowButton=true" type="submit">Aggiungi</button>
+      <button v-if="showArea" class="indietro" @click="showArea=false; ShowButton=true" type="submit">Indietro</button>
       <button v-if="showAreaPermission" class="addGroup" @click="showAreaPermission=false; ShowButton=true" type="submit">Aggiungi</button>
+      <button v-if="showAreaPermission" class="indietro" @click="showAreaPermission=false; ShowButton=true" type="submit">Indietro</button>
       <div class="modal-buttons">
         <button id="submitButton" @click="save" >Salva</button>
         <button id="cancelButton" @click="cancel" >Annulla</button>
@@ -67,12 +69,26 @@ export default{
   background-color: rgb(27, 157, 217);
   cursor: pointer;
   top:60%;
-  left:50%;
+  left:39%;
   transform: translate(-50%, -50%);
-  width: 30%;
+  width: 20%;
   height: 40px;
   color: black;
   font-size: 18px;
+  border: none;
+}
+.indietro{
+  position: fixed;
+  background-color: rgb(217, 217, 217);
+  cursor: pointer;
+  top:60%;
+  left:61%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  height: 40px;
+  color: black;
+  font-size: 18px;
+  border: none;
 }
 textarea{
   position: fixed;
@@ -121,12 +137,14 @@ option {
   align-items: center;
   margin-top: 3%;
   z-index: 123456789;
+  border: none;
 }
 h2 {
   font-weight: bold;
   font-size: 30px;
   color: white;
   text-align: center;
+  border: none;
 }
 .modal-buttons {
   padding-bottom: 5px;
@@ -136,6 +154,7 @@ h2 {
   margin-top: 10px;
   position: relative;
   top: 310px;
+  border: none;
 
 }
 #submitButton {
@@ -147,6 +166,7 @@ h2 {
   color: black;
   font-size: 18px;
   margin-right: 2%;
+  border: none;
 }
 #cancelButton {
   border: 1px solid rgb(66, 76, 87);
@@ -156,20 +176,27 @@ h2 {
   width: 49%;
   color: black;
   font-size: 18px;
+  border: none;
 }
 .permission{
   position: fixed;
-  top:50%;
-  left:60%;
+  top: 50%;
+  left: 60%;
   transform: translate(-50%, -50%);
   width: 15%;
   height: 15%;
   border: none;
-  font-size: 40px;
-  background-image: url("src/images/peole.png");
-
+  background-color: rgb(27, 157, 217);
+  background-image: url("src/images/people.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: none;
 }
 .deleteGroup{
   background-color: rgb(27, 157, 217);
+  border: none;
+  cursor: pointer;
+
 }
 </style>

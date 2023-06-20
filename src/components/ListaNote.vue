@@ -143,12 +143,4 @@ h3 {
   bottom: 30px;
   background-color: rgb(27, 157, 217);
 }
-.search{
-  width: 25px;
-  height: 25px;
-  margin-bottom: 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 </style>

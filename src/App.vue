@@ -66,10 +66,10 @@ export default {
     Gruppi,
   },
   mounted(){
-    sessionStorage.setItem('operatorID', '8');
-    sessionStorage.setItem('operatorName', 'bnigg');
-    sessionStorage.setItem('operatorSurname', 'chnillin');
-    this.changeGroup("Privato");
+    sessionStorage.setItem('operatorID', '9');
+    sessionStorage.setItem('operatorName', 'sudman');
+    sessionStorage.setItem('operatorSurname', 'useheinz');
+
   },
   data() {
     return {
@@ -205,10 +205,15 @@ export default {
       let risposta = await axios.request(config);
       this.groups=JSON.parse(risposta.data.data.data).groups;
     },
-    addGroup(grupponuovo) {
-      this.grupponuovo.persone.push(this.operatorID);
-      this.groups.push(grupponuovo);
+    //metodo che aggiunge i gruppi
+    addGroup(gruppi){
+      const groups = {
+        groupName: gruppi.groupName,
+      }
+      if(this.groupName != ""){
+      this.groups.push(gruppi.groupName);
       this.writeGroups();
+      }
     },
     //metodo per modificare una nota 
     modificaNota(notem, vecchiaNota) {
@@ -238,7 +243,12 @@ export default {
       this.notes.forEach(element => {
         console.log(element);
         if (element.groupped == this.groups[this.gindex]) {
-          element.view = true;
+          if (this.groups[this.gindex] != "Pubblico" && element.operatorID != sessionStorage.getItem("operatorID")) {
+            console.log("Entrato in entrambi gli IF");
+            element.view = false;
+          } else {
+            element.view = true;
+          }
         } else {
           element.view = false;
         }
@@ -250,10 +260,11 @@ export default {
     {
       const  gruppoPointer = this.groups.find(g => g == gruppo);
       console.log(gruppoPointer);
-      this.groups = this.groups.filter(g => g!=gruppoPointer);
+      if(gruppoPointer!="Privato" && gruppoPointer!="Pubblico" )
+      {this.groups = this.groups.filter(g => g!=gruppoPointer);
       this.notes = this.notes.filter(n => n.groupped != gruppo);
       this.writeGroups();
-      this.writeNotes();
+      this.writeNotes();}
     },
     //metodo per rimuovere la nota una volta confermato il controllo della rimozione
     removeNote(note) {
