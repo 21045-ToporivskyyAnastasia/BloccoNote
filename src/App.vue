@@ -33,6 +33,7 @@
     :gruppi="lastclickedGroup"
     @cancel="showGroups=false"
     :showArea = "false"
+    :showAreaPermission = "false"
     :ShowButton = "true"
     @add-group="addGroup"
     @save-groups="changeGroup"
