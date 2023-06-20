@@ -27,6 +27,7 @@ export default{
       return {
         groupName: '',
         gruppoCorrente: '',
+        persone: [],
       };
   },
   methods:{

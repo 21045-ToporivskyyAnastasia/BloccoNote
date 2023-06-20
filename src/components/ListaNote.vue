@@ -66,7 +66,7 @@ export default{
   position: absolute;
   width: 25px;
   height: 25px;
-  right:10%;
+  right: 10%;
   transform: translate(0%, -10px);
 }
 .note-list {
@@ -148,7 +148,7 @@ h3 {
   height: 25px;
   margin-bottom: 20px;
   position: absolute;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
 }
 </style>
