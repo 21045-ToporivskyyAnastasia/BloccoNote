@@ -207,10 +207,8 @@ export default {
     },
     //metodo che aggiunge i gruppi
     addGroup(gruppi){
-      const groups = {
-        groupName: gruppi.groupName,
-      }
-      if(this.groupName != "" || this.groupName != "Privato" || this.groupName != "Pubblico"){
+      console.log(gruppi);
+      if(gruppi.groupName != "" && gruppi.groupName != "Privato" && gruppi.groupName != "Pubblico"){
       this.groups.push(gruppi.groupName);
       this.writeGroups();
       }
@@ -260,7 +258,7 @@ export default {
     {
       const  gruppoPointer = this.groups.find(g => g == gruppo);
       console.log(gruppoPointer);
-      if(gruppoPointer!="Privato" || gruppoPointer!="Pubblico")
+      if(gruppoPointer!="Privato" && gruppoPointer!="Pubblico")
       {
         this.groups = this.groups.filter(g => g!=gruppoPointer);
         this.notes = this.notes.filter(n => n.groupped != gruppo);
@@ -313,6 +311,9 @@ export default {
 </script>
 <!--design del blocco note con css-->
 <style>
+textarea{
+  resize: none;
+}
 html {
   width: 100%;
   height: 100%;
