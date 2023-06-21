@@ -120,6 +120,8 @@ h3 {
   padding-left: 2%;
   padding-right: 2%;
   cursor: pointer;
+  max-height: 150px;
+  overflow: hidden;
 }
 .note-date {
   font-size: 12.5px;

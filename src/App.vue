@@ -260,11 +260,14 @@ export default {
     {
       const  gruppoPointer = this.groups.find(g => g == gruppo);
       console.log(gruppoPointer);
-      if(gruppoPointer!="Privato" && gruppoPointer!="Pubblico")
-      {this.groups = this.groups.filter(g => g!=gruppoPointer);
-      this.notes = this.notes.filter(n => n.groupped != gruppo);
-      this.writeGroups();
-      this.writeNotes();}
+      if(gruppoPointer!="Privato" || gruppoPointer!="Pubblico")
+      {
+        this.groups = this.groups.filter(g => g!=gruppoPointer);
+        this.notes = this.notes.filter(n => n.groupped != gruppo);
+        this.writeGroups();
+        this.writeNotes();
+        this.changeGroup("Privato")
+    }
     },
     //metodo per rimuovere la nota una volta confermato il controllo della rimozione
     removeNote(note) {
