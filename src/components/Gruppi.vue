@@ -11,12 +11,14 @@
         </select>
         <button class="deleteGroup" @click.prevent="removeGroup">Rimuovi</button>
       </form>
-      <textarea v-model="groupName" v-if="showArea" name="newGroup" maxlength="50" required></textarea>
-      <textarea v-model="groupName" v-if="showAreaPermission" name="Permission" maxlength="50" required></textarea>
-      <button v-if="showArea" class="addGroup" @click="addGroup(); showArea=false; ShowButton=true" type="submit">Aggiungi</button>
+    <form>
+      <textarea v-model="groupName" v-if="showArea" name="newGroup" maxlength="50" placeholder="Nome del gruppo..." required></textarea>
+      <textarea v-model="permission" v-if="showAreaPermission" name="Permission" maxlength="50" placeholder="Inserisci nome utente..." required></textarea>
+      <button v-if="showArea" class="addGroup" @submit="addGroup(); showArea=false; ShowButton=true" type="submit">Aggiungi</button>
       <button v-if="showArea" class="indietro" @click="showArea=false; ShowButton=true" type="submit">Indietro</button>
-      <button v-if="showAreaPermission" class="addGroup" @click="showAreaPermission=false; ShowButton=true" type="submit">Aggiungi</button>
+      <button v-if="showAreaPermission" class="addGroup" @submit="showAreaPermission=false; ShowButton=true" type="submit">Aggiungi</button>
       <button v-if="showAreaPermission" class="indietro" @click="showAreaPermission=false; ShowButton=true" type="submit">Indietro</button>
+    </form>
       <div class="modal-buttons">
         <button id="submitButton" @click="save" >Salva</button>
         <button id="cancelButton" @click="cancel" >Annulla</button>
@@ -35,7 +37,7 @@ export default{
         persone: [],
       };
   },
-  methods:{
+  methods:{ 
     removeGroup(){
       this.$emit('remove-group',this.gruppoCorrente)
     },

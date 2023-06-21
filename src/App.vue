@@ -210,7 +210,8 @@ export default {
       const groups = {
         groupName: gruppi.groupName,
       }
-      if(this.groupName != ""){
+      console.log(this.groupName);
+      if(this.groupName != undefined && this.groupName != "" && this.groupName != "Privato" && this.groupName != "Pubblico"){
       this.groups.push(gruppi.groupName);
       this.writeGroups();
       }
@@ -260,11 +261,12 @@ export default {
     {
       const  gruppoPointer = this.groups.find(g => g == gruppo);
       console.log(gruppoPointer);
-      if(gruppoPointer!="Privato" && gruppoPointer!="Pubblico" )
+      if(gruppoPointer!="Privato" || gruppoPointer!="Pubblico" )
       {this.groups = this.groups.filter(g => g!=gruppoPointer);
       this.notes = this.notes.filter(n => n.groupped != gruppo);
       this.writeGroups();
       this.writeNotes();}
+      this.changeGroup("Privato");
     },
     //metodo per rimuovere la nota una volta confermato il controllo della rimozione
     removeNote(note) {
