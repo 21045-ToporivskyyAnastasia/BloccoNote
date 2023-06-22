@@ -1,7 +1,7 @@
 <template>
   <header>Blocco Note
     <p class="gruppo">Gruppo:</p>
-      <button class="groupScreen" @click="showGroups = true;">{{ groups[gindex] }}</button>
+      <button class="groupScreen" @click="showGroups = true;">{{ this.groups[gindex] }}</button>
   </header>
 
   <ListaNote
@@ -69,8 +69,28 @@ export default {
   },
   mounted(){
     sessionStorage.setItem('operatorID', '9');
-    sessionStorage.setItem('operatorName', 'sudman');
-    sessionStorage.setItem('operatorSurname', 'useheinz');
+    sessionStorage.setItem('operatorName', 'anastasia');
+    sessionStorage.setItem('operatorSurname', 'boh');
+    if (this.groups == []) {
+      ops = this.getOperators();
+      allops = [];
+      for (var i = 0; i < ops.length; i++) {
+        allops.push(ops[i].id);
+      }
+      const group = {
+        groupOperators: [sessionStorage.getItem('operatorID')],
+        groupName: 'Privato',
+      };
+      this.groups.unshift(group);
+      group = {
+        groupName: 'Pubblico',
+        groupOperators: allops,
+      };
+      this.groups.push(group);
+      this.writeGroups();
+      
+    }
+    setTimeout(console.log(this.groups,"gruppi"), 2000); 
   },
   data() {
     return {
@@ -79,17 +99,17 @@ export default {
       showRemoveNote: false,
       showGroups: false,
       notes: [],
-      groups: ["Privato", "Pubblico"],
+      groups: [],
       gindex: 0,
       lastclickedNote: null,
       lastclickedGroup:null,
       query: '',
-      operator: [],
+      currentOperator: sessionStorage.getItem('operatorID'),
     };
   },
   beforeMount() {
     this.notes = [];
-    this.groups = ["Privato", "Pubblico"];
+    this.groups = [];
     this.readNotes();
     this.readGroups();
     console.log(this.notes);
@@ -207,6 +227,19 @@ export default {
 
       let risposta = await axios.request(config);
       this.groups=JSON.parse(risposta.data.data.data).groups;
+      console.log(this.groups);
+      this.notes.forEach(element => {
+        console.log(element);
+        if (element.groupped == this.groups[this.gindex]) {
+          if (this.groups[this.gindex] != "Pubblico" && element.operatorID != this.currentOperator) {
+            element.view = false;
+          } else {
+            element.view = true;
+          }
+        } else {
+          element.view = false;
+        }
+      });
     },
     //metodo getOperators
     async getOperators(){
@@ -230,14 +263,19 @@ export default {
       console.log(risposta.data.operators, "operatori");
       this.operator = risposta.data.operators;
     },
-    addOperator(id){
-      console.log(id);
+    addOperator(gruppoCorrente, op){
+      
+      const gruppoPointer = this.groups.find( g => JSON.stringify(g) == JSON.stringify(gruppoCorrente));
+      gruppoPointer.groupOperators.push(op);
+      this.writeGroups();
+      console.log(gruppoCorrente);
     },
     //metodo che aggiunge i gruppi
     addGroup(gruppi){
       console.log(gruppi);
       if(gruppi.groupName != "" && !this.groups.some( g => g == gruppi.groupName)){
-      this.groups.push(gruppi.groupName);
+      gruppi.groupOperators.push(this.currentOperator);
+      this.groups.push(gruppi);
       this.writeGroups();
       }
     },
@@ -269,8 +307,7 @@ export default {
       this.notes.forEach(element => {
         console.log(element);
         if (element.groupped == this.groups[this.gindex]) {
-          if (this.groups[this.gindex] != "Pubblico" && element.operatorID != sessionStorage.getItem("operatorID")) {
-            console.log("Entrato in entrambi gli IF");
+          if (this.groups[this.gindex] != "Pubblico" && element.operatorID != this.currentOperator) {
             element.view = false;
           } else {
             element.view = true;
@@ -297,6 +334,7 @@ export default {
     },
     //metodo per rimuovere la nota una volta confermato il controllo della rimozione
     removeNote(note) {
+      console.log(this.groups);
       const index = this.notes.findIndex(checkid);
       function checkid(noter) {
         return noter.id == note.id;
@@ -322,7 +360,7 @@ export default {
         title: notem.title,
         content: notem.content,
         date: ""+notem.date.getDate().toString().padStart(2, '0')+"-"+(notem.date.getMonth() + 1).toString().padStart(2, '0')+"-"+notem.date.getFullYear(),
-        operatorID: sessionStorage.getItem("operatorID"),
+        operatorID: this.currentOperator,
         operatorName: sessionStorage.getItem("operatorName"),
         operatorSurname: sessionStorage.getItem("operatorSurname"),
         view: true,

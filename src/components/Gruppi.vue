@@ -6,7 +6,7 @@
       <button v-if="ShowButton" class="permission" @click="showOperators=true; ShowButton=false"></button>
       <form class="gruppi" action="#" >
         <select class="groups" name="groups" id="lang" v-model="gruppoCorrente">
-          <option  v-for="g in groupss" :value="g" :key="g"> {{ g }} </option>
+          <option  v-for="g in groupss" :value="g" :key="g"> {{ g.groupName ?? g }} </option>
         </select>
         <button class="deleteGroup" @click.prevent="removeGroup">Rimuovi</button>
       </form>
@@ -30,12 +30,11 @@
 
 <script>
 export default{
-  props: ["groupss", "showArea", "ShowButton","showOperators", "operators"],
+  props: ["groupss", "showArea", "ShowButton","showOperators", "operators", "currentOperato"],
   data() {
       return {
         groupName: '',
         gruppoCorrente: '',
-        currentOperator: {},
       };
   },
   mounted() {
@@ -45,7 +44,7 @@ export default{
   },
   methods:{
     addOperator(){
-      this.$emit('add-operator', this.currentOperator)
+      this.$emit('add-operator', this.gruppoCorrente, this.currentOperator);
     },
     removeGroup(){
       this.$emit('remove-group',this.gruppoCorrente)
@@ -53,6 +52,7 @@ export default{
     addGroup(){
       this.$emit('add-group', {
         groupName: this.groupName.trim(),
+        groupOperators: [],
       },
       this.groupss
       );
