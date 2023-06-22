@@ -1,24 +1,22 @@
 <template>
   <div class="modal" >
+    <h2>Gruppi:</h2>
     <div class="modal-content">
-      <h2>Gruppi</h2>
       <button v-if="ShowButton" class="createGroups" @click="showArea=true; ShowButton=false">+</button>
       <button v-if="ShowButton" class="permission" @click="showAreaPermission=true; ShowButton=false"></button>
-      <form action="#">
-        <label for="lang"> Gruppi: </label>
+      <form action="#" >
         <select name="groups" id="lang" v-model="gruppoCorrente">
           <option  v-for="g in groupss" :value="g" :key="g"> {{ g }} </option>
         </select>
         <button class="deleteGroup" @click.prevent="removeGroup">Rimuovi</button>
       </form>
-    <form>
-      <textarea v-model="groupName" v-if="showArea" name="newGroup" maxlength="50" placeholder="Nome del gruppo..." required></textarea>
+      <textarea v-model="groupName" v-if="showArea" name="newGroup" maxlength="10" placeholder="Nome del gruppo..." required></textarea>
       <textarea v-model="permission" v-if="showAreaPermission" name="Permission" maxlength="50" placeholder="Inserisci nome utente..." required></textarea>
-      <button v-if="showArea" class="addGroup" @submit="addGroup(); showArea=false; ShowButton=true" type="submit">Aggiungi</button>
-      <button v-if="showArea" class="indietro" @click="showArea=false; ShowButton=true" type="submit">Indietro</button>
-      <button v-if="showAreaPermission" class="addGroup" @submit="showAreaPermission=false; ShowButton=true" type="submit">Aggiungi</button>
+      <button v-if="showArea" class="addGroup" @click="addGroup(); showArea=false; ShowButton=true" type="submit">Aggiungi</button>
+      <button v-if="showArea" class="indietro" @click="showArea=false; ShowButton=true; this.groupName=''" type="submit">Indietro</button>
+      <button v-if="showAreaPermission" class="addGroup" @click="showAreaPermission=false; ShowButton=true" type="submit">Aggiungi</button>
       <button v-if="showAreaPermission" class="indietro" @click="showAreaPermission=false; ShowButton=true" type="submit">Indietro</button>
-    </form>
+
       <div class="modal-buttons">
         <button id="submitButton" @click="save" >Salva</button>
         <button id="cancelButton" @click="cancel" >Annulla</button>
@@ -74,6 +72,7 @@ export default{
   left:39%;
   transform: translate(-50%, -50%);
   width: 20%;
+  border:none;
   height: 40px;
   color: black;
   font-size: 18px;
@@ -96,15 +95,15 @@ textarea{
   position: fixed;
   top: 50%;
   left:50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -80%);
 }
 .createGroups{
   position: fixed;
   top:50%;
   left:40%;
   transform: translate(-50%, -50%);
-  width: 15%;
-  height: 15%;
+  width: 18%;
+  height: 20%;
   border: none;
   font-size: 40px;
   background-color: rgb(27, 157, 217);
@@ -113,8 +112,15 @@ label {
   width: 200 px;  
   color: white;
 }
-select {
-  width: 200px;
+select{
+  width: 70%;
+  height: 100%;
+}
+form {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  width: 300px;
   size: 302px;
 }
 option {
@@ -126,8 +132,8 @@ option {
   color: white;
 }
 .modal {
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 350px;
   background-color: rgb(66, 76, 87);
   padding: 30px;
   position: fixed;
@@ -155,7 +161,7 @@ h2 {
   color: white;
   margin-top: 10px;
   position: relative;
-  top: 310px;
+  top: 175px;
   border: none;
 
 }
@@ -185,8 +191,8 @@ h2 {
   top: 50%;
   left: 60%;
   transform: translate(-50%, -50%);
-  width: 15%;
-  height: 15%;
+  width: 18%;
+  height: 20%;
   border: none;
   background-color: rgb(27, 157, 217);
   background-image: url("src/images/people.png");
@@ -199,6 +205,7 @@ h2 {
   background-color: rgb(27, 157, 217);
   border: none;
   cursor: pointer;
-
+  width: 30%;
+  height: 100%;
 }
 </style>
