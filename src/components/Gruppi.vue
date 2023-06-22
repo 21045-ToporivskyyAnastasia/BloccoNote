@@ -3,19 +3,26 @@
     <h2>Gruppi:</h2>
     <div class="modal-content">
       <button v-if="ShowButton" class="createGroups" @click="showArea=true; ShowButton=false">+</button>
-      <button v-if="ShowButton" class="permission" @click="showAreaPermission=true; ShowButton=false"></button>
-      <form action="#" >
-        <select name="groups" id="lang" v-model="gruppoCorrente">
+      <button v-if="ShowButton" class="permission" @click="showOperators=true; ShowButton=false"></button>
+      <form class="gruppi" action="#" >
+        <select class="groups" name="groups" id="lang" v-model="gruppoCorrente">
           <option  v-for="g in groupss" :value="g" :key="g"> {{ g }} </option>
         </select>
         <button class="deleteGroup" @click.prevent="removeGroup">Rimuovi</button>
       </form>
       <textarea v-model="groupName" v-if="showArea" name="newGroup" maxlength="10" placeholder="Nome del gruppo..." required></textarea>
-      <textarea v-model="permission" v-if="showAreaPermission" name="Permission" maxlength="50" placeholder="Inserisci nome utente..." required></textarea>
       <button v-if="showArea" class="addGroup" @click="addGroup(); showArea=false; ShowButton=true" type="submit">Aggiungi</button>
       <button v-if="showArea" class="indietro" @click="showArea=false; ShowButton=true; this.groupName=''" type="submit">Indietro</button>
-      <button v-if="showAreaPermission" class="addGroup" @click="showAreaPermission=false; ShowButton=true" type="submit">Aggiungi</button>
-      <button v-if="showAreaPermission" class="indietro" @click="showAreaPermission=false; ShowButton=true" type="submit">Indietro</button>
+
+
+      <form v-if="showOperators" class="operatori" action="#" >
+        <select class="operators" name="operators" id="lang" v-model="currentOperator">
+          <option  v-for="o in operators" :value="o.id" :key="o.id"> {{ o.email }} </option>
+        </select>
+      </form> 
+      <button v-if="showOperators" class="addGroup" @click="addOperator(); showOperators=false; ShowButton=true" type="submit">Aggiungi</button>
+      <button v-if="showOperators" class="indietro" @click="showOperators=false; ShowButton=true" type="submit">Indietro</button>
+
       <div class="modal-buttons">
         <button id="submitButton" @click="save" >Salva</button>
         <button id="cancelButton" @click="cancel" >Annulla</button>
@@ -26,15 +33,23 @@
 
 <script>
 export default{
-  props: ["groupss", "showArea", "ShowButton","showAreaPermission"],
+  props: ["groupss", "showArea", "ShowButton","showOperators", "operators"],
   data() {
       return {
         groupName: '',
         gruppoCorrente: '',
-        persone: [],
+        currentOperator: {},
       };
   },
+  mounted() {
+    setTimeout(() => {
+      console.log(this.operators);
+    }, 2000);
+  },
   methods:{
+    addOperator(){
+      this.$emit('add-operator', this.currentOperator)
+    },
     removeGroup(){
       this.$emit('remove-group',this.gruppoCorrente)
     },
@@ -61,8 +76,7 @@ export default{
 
 <style scoped>
 * {
-  color: black;
-}
+  color: black;}
 .addGroup{
   position: fixed;
   background-color: rgb(27, 157, 217);
@@ -111,11 +125,17 @@ label {
   width: 200 px;  
   color: white;
 }
-select{
+.groups{
   width: 70%;
   height: 100%;
 }
-form {
+.operators{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+}
+.gruppi {
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0%);
