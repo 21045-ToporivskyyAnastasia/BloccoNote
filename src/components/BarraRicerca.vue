@@ -1,10 +1,10 @@
 <template>
-    <div class="search-bar">
-      <input type="text" v-model="searchQuery" placeholder="Cerca..." @input="searchNotes" />
-    </div>
-  </template>
+  <div class="search-bar">
+    <input type="text" v-model="searchQuery" placeholder="Cerca..." @input="searchNotes" />
+  </div>
+</template>
   
-  <script>
+<script>
   export default {
     name: "BarraRicerca",
     data() {
@@ -15,12 +15,12 @@
     methods: {
       searchNotes() {
         this.$emit("search-notes", this.searchQuery);
-      },
-    },
-  };
-  </script>
+      }
+    }
+  }
+</script>
   
-  <style scoped>
+<style scoped>
   .search-bar {
     margin-bottom: 20px;
     position: absolute;
@@ -34,5 +34,5 @@
     font-size: 16px;
     z-index:0;
   }
-  </style>
+</style>
   
