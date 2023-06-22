@@ -33,11 +33,13 @@
     :gruppi="lastclickedGroup"
     @cancel="showGroups=false"
     :showArea = "false"
-    :showAreaPermission = "false"
+    :showOperators = "false"
     :ShowButton = "true"
     @add-group="addGroup"
     @save-groups="changeGroup"
     @remove-group="removeGroup"
+    @add-operator="addOperator"
+    :operators="operator"
   />
   <BarraRicerca 
     @search-notes="filterNotes" 
@@ -69,7 +71,6 @@ export default {
     sessionStorage.setItem('operatorID', '9');
     sessionStorage.setItem('operatorName', 'sudman');
     sessionStorage.setItem('operatorSurname', 'useheinz');
-
   },
   data() {
     return {
@@ -83,6 +84,7 @@ export default {
       lastclickedNote: null,
       lastclickedGroup:null,
       query: '',
+      operator: [],
     };
   },
   beforeMount() {
@@ -91,6 +93,7 @@ export default {
     this.readNotes();
     this.readGroups();
     console.log(this.notes);
+    this.getOperators();
   },
   computed: {
     filteredNotes() {
@@ -205,10 +208,35 @@ export default {
       let risposta = await axios.request(config);
       this.groups=JSON.parse(risposta.data.data.data).groups;
     },
+    //metodo getOperators
+    async getOperators(){
+      let data = JSON.stringify({
+        "appCode" : "ONOINT-0002",
+      });
+
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: "http://64.227.120.171:7576/grpc/GetOperators",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6LTEsImlzcyI6Im9ub1NlcnZlciIsInN1YiI6InNvbWVvbmUiLCJleHAiOjE2ODYzMDQwMDksIm5iZiI6MTY4NjIxOTQwOSwiaWF0IjoxNjg2MjE3NjA5LCJqdGkiOiJvbm8tc2VydmVyIn0.VtfbfToSXSekUVEKtViannwS2O4MUdkLKlQsqpuOnUY'
+        },
+        data: data
+
+      }
+
+      let risposta = await axios.request(config);
+      console.log(risposta.data.operators, "operatori");
+      this.operator = risposta.data.operators;
+    },
+    addOperator(id){
+      console.log(id);
+    },
     //metodo che aggiunge i gruppi
     addGroup(gruppi){
       console.log(gruppi);
-      if(gruppi.groupName != "" && gruppi.groupName != "Privato" && gruppi.groupName != "Pubblico"){
+      if(gruppi.groupName != "" && !this.groups.some( g => g == gruppi.groupName)){
       this.groups.push(gruppi.groupName);
       this.writeGroups();
       }
