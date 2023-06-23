@@ -1,7 +1,7 @@
 <template>
   <header>Blocco Note
     <p class="gruppo">Gruppo:</p>
-      <button class="groupScreen" @click="showGroups = true;">{{ groups[gindex] }}</button>
+      <button class="groupScreen" @click="showGroups = true;">{{ this.groups[gindex] == undefined ? "Caricando" : (this.groups[gindex].groupName ?? this.groups[gindex]) }}</button>
   </header>
 
   <ListaNote
@@ -68,9 +68,30 @@ export default {
     Gruppi,
   },
   mounted(){
-    sessionStorage.setItem('operatorID', '9');
-    sessionStorage.setItem('operatorName', 'sudman');
-    sessionStorage.setItem('operatorSurname', 'useheinz');
+    sessionStorage.setItem('operatorID', '20');
+    sessionStorage.setItem('operatorName', 'anastasia');
+    sessionStorage.setItem('operatorSurname', 'boh');
+    
+    if (this.groups == []) {
+      ops = this.getOperators();
+      allops = [];
+      for (var i = 0; i < ops.length; i++) {
+        allops.push(ops[i].id);
+      }
+      const group = {
+        groupName: 'Privato',
+        groupOperators: [sessionStorage.getItem('operatorID')],
+      };
+      this.groups.unshift(group);
+      group = {
+        groupName: 'Pubblico',
+        groupOperators: allops,
+      };
+      this.groups.push(group);
+      this.writeGroups();
+      
+    }
+    setTimeout(2000); 
   },
   data() {
     return {
@@ -79,20 +100,20 @@ export default {
       showRemoveNote: false,
       showGroups: false,
       notes: [],
-      groups: ["Privato", "Pubblico"],
+      groups: [],
       gindex: 0,
       lastclickedNote: null,
       lastclickedGroup:null,
       query: '',
-      operator: [],
+      currentOperator: sessionStorage.getItem('operatorID'),
     };
   },
   beforeMount() {
     this.notes = [];
-    this.groups = ["Privato", "Pubblico"];
+    this.groups = [];
     this.readNotes();
     this.readGroups();
-    console.log(this.notes);
+    //console.log(this.notes);
     this.getOperators();
   },
   computed: {
@@ -112,7 +133,6 @@ export default {
     filterNotes(query) {
       this.query = query;
     },
-    //metodo write notes per permettere di leggere le note nel database
     async writeNotes() {
       let data = JSON.stringify({
         appCode: "ONOINT-0001",
@@ -207,6 +227,38 @@ export default {
 
       let risposta = await axios.request(config);
       this.groups=JSON.parse(risposta.data.data.data).groups;
+      //console.log(this.groups);
+      this.notes.forEach(element => {
+        if (element.groupped == this.groups[this.gindex].groupName) {
+          //console.log("dentro")
+          element.view = true;
+          if (this.groups[this.gindex].groupName == "Privato" && element.operatorID == this.currentOperator) {
+            console.log(element.operatorID)
+            console.log(this.currentOperator)
+            element.view = true;
+            console.log("if1")
+          } else if (this.groups[this.gindex].groupName == "Pubblico") {
+            console.log("if2")
+            element.view = true;
+          } else if(!this.groups[this.gindex].groupOperators.some(e => e == element.operatorID)) {
+            console.log("if3")
+            element.view = false;
+          } else {
+            element.view = false;
+          }
+        } else {
+          element.view = false;
+        }
+        /*if (element.groupped == "Privato" && this.groups[this.gindex].groupName == element.groupped && element.operatorID != this.currentOperator){
+          element.view = true;
+        } else if (element.groupped == "Pubblico" && this.groups[this.gindex].groupName == element.groupped) {
+          element.view = true;
+        } else if (element.groupped == this.groups[this.gindex].groupName) {
+          element.view = true;
+        } else {
+          element.view = false;
+        }*/
+      });
     },
     //metodo getOperators
     async getOperators(){
@@ -230,17 +282,19 @@ export default {
       console.log(risposta.data.operators, "operatori");
       this.operator = risposta.data.operators;
     },
-    addOperator(id, gruppoCorrente){
-      console.log(id);
-      console.log(gruppoCorrente);
+    addOperator(gruppoCorrente, op){
       
-
+      const gruppoPointer = this.groups.find( g => JSON.stringify(g) == JSON.stringify(gruppoCorrente));
+      gruppoPointer.groupOperators.push(op);
+      this.writeGroups();
+      console.log(gruppoCorrente);
     },
     //metodo che aggiunge i gruppi
     addGroup(gruppi){
       console.log(gruppi);
       if(gruppi.groupName != "" && !this.groups.some( g => g == gruppi.groupName)){
-      this.groups.push(gruppi.groupName);
+      gruppi.groupOperators.push(this.currentOperator);
+      this.groups.push(gruppi);
       this.writeGroups();
       }
     },
@@ -270,17 +324,31 @@ export default {
       this.gindex = this.groups.indexOf(gruppoPointer);
 
       this.notes.forEach(element => {
-        console.log(element);
-        if (element.groupped == this.groups[this.gindex]) {
-          if (this.groups[this.gindex] != "Pubblico" && element.operatorID != sessionStorage.getItem("operatorID")) {
-            console.log("Entrato in entrambi gli IF");
-            element.view = false;
-          } else {
+        if (element.groupped == this.groups[this.gindex].groupName) {
+          //console.log("dentro")
+          element.view = true;
+          if (this.groups[this.gindex].groupName == "Privato" && element.operatorID == this.currentOperator) {
             element.view = true;
+            console.log("if1")
+          } else if (this.groups[this.gindex].groupName == "Pubblico") {
+            console.log("if2")
+            element.view = true;
+          } else if (this.groups[this.gindex].groupName == "Privato" && element.operatorID != this.currentOperator) {
+            console.log("if3")
+            element.view = false;
           }
         } else {
           element.view = false;
         }
+        /*if (element.groupped == "Privato" && this.groups[this.gindex].groupName == element.groupped && element.operatorID != this.currentOperator){
+          element.view = true;
+        } else if (element.groupped == "Pubblico" && this.groups[this.gindex].groupName == element.groupped) {
+          element.view = true;
+        } else if (element.groupped == this.groups[this.gindex].groupName) {
+          element.view = true;
+        } else {
+          element.view = false;
+        }*/
       });
       this.showGroups= false;
     },
@@ -288,7 +356,7 @@ export default {
     removeGroup(gruppo)
     {
       const  gruppoPointer = this.groups.find(g => g == gruppo);
-      console.log(gruppoPointer);
+      //console.log(gruppoPointer);
       if(gruppoPointer!="Privato" && gruppoPointer!="Pubblico")
       {
         this.groups = this.groups.filter(g => g!=gruppoPointer);
@@ -300,6 +368,7 @@ export default {
     },
     //metodo per rimuovere la nota una volta confermato il controllo della rimozione
     removeNote(note) {
+      console.log(this.groups);
       const index = this.notes.findIndex(checkid);
       function checkid(noter) {
         return noter.id == note.id;
@@ -325,16 +394,17 @@ export default {
         title: notem.title,
         content: notem.content,
         date: ""+notem.date.getDate().toString().padStart(2, '0')+"-"+(notem.date.getMonth() + 1).toString().padStart(2, '0')+"-"+notem.date.getFullYear(),
-        operatorID: sessionStorage.getItem("operatorID"),
+        operatorID: this.currentOperator,
         operatorName: sessionStorage.getItem("operatorName"),
         operatorSurname: sessionStorage.getItem("operatorSurname"),
         view: true,
-        groupped: this.groups[this.gindex],
+        groupped: this.groups[this.gindex].groupName,
       };
+      console.log(note.groupped)
       this.notes.unshift(note);
       this.showCreateNote = false;
       this.showModificaNote = false;
-      console.log(this.notes);
+      //console.log(this.notes);
       this.writeNotes();
     },
   },
