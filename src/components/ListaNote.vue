@@ -21,6 +21,7 @@ export default{
   props: ["ShowSearchBar"],
   computed: {
     noteVisibili(){
+      
       return this.notes.filter(n => n.view);
     }
   },

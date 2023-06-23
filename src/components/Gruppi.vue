@@ -6,7 +6,7 @@
       <button v-if="ShowButton" class="permission" @click="showOperators=true; ShowButton=false"></button>
       <form class="gruppi" action="#" >
         <select class="groups" name="groups" id="lang" v-model="gruppoCorrente">
-          <option  v-for="g in groupss" :value="g" :key="g"> {{ g.groupName ?? g }} </option>
+          <option  v-for="g in gruppiAttuali" :value="g" :key="g"> {{ g.groupName }} </option>
         </select>
         <button class="deleteGroup" @click.prevent="removeGroup">Rimuovi</button>
       </form>
@@ -29,12 +29,14 @@
 </template>
 
 <script>
+
 export default{
   props: ["groupss", "showArea", "ShowButton","showOperators", "operators", "currentOperato"],
   data() {
       return {
         groupName: '',
         gruppoCorrente: '',
+        contaGruppi: 0,
       };
   },
   mounted() {
@@ -42,8 +44,29 @@ export default{
       console.log(this.operators);
     }, 2000);
   },
+  computed:{
+    gruppiAttuali(){  
+      var temp = [];
+      console.log(this.groupss)
+      temp[0] = this.groupss[0];
+      temp[1] = this.groupss[1];
+      for (let i = 2; i < this.groupss.length; i++) {
+        let check = false;
+        for (let j = 0; j < this.groupss[i].groupOperators.length && check == false; j++) {
+          if(this.groupss[i].groupOperators[j] == this.currentOperato){
+            check = true;
+          }
+        }
+        if(check){
+          temp[i] = this.groupss[i];
+        }
+      }
+      return temp;
+    }
+  },
   methods:{
     addOperator(){
+      console.log(this.currentOperator)
       this.$emit('add-operator', this.gruppoCorrente, this.currentOperator);
     },
     removeGroup(){

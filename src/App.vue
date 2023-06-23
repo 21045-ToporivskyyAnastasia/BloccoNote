@@ -40,6 +40,7 @@
     @remove-group="removeGroup"
     @add-operator="addOperator"
     :operators="operator"
+    :currentOperato= "currentOperator"
   />
   <BarraRicerca 
     @search-notes="filterNotes" 
@@ -68,30 +69,15 @@ export default {
     Gruppi,
   },
   mounted(){
-    sessionStorage.setItem('operatorID', '20');
+    sessionStorage.setItem('operatorID', 20);
     sessionStorage.setItem('operatorName', 'anastasia');
     sessionStorage.setItem('operatorSurname', 'boh');
+    console.log(this.groups);
     
-    if (this.groups == []) {
-      ops = this.getOperators();
-      allops = [];
-      for (var i = 0; i < ops.length; i++) {
-        allops.push(ops[i].id);
-      }
-      const group = {
-        groupName: 'Privato',
-        groupOperators: [sessionStorage.getItem('operatorID')],
-      };
-      this.groups.unshift(group);
-      group = {
-        groupName: 'Pubblico',
-        groupOperators: allops,
-      };
-      this.groups.push(group);
-      this.writeGroups();
-      
-    }
-    setTimeout(2000); 
+    setTimeout(() => {
+      //window.location.reload();
+      this.aggiornaNotes();
+    }, 2000);
   },
   data() {
     return {
@@ -113,8 +99,12 @@ export default {
     this.groups = [];
     this.readNotes();
     this.readGroups();
+    //this.groups = [{groupName: 'Privato',groupOperators: [sessionStorage.getItem('operatorID')]}, {groupName: 'Pubblico',groupOperators: null}];
+    console.log(this.groups)
+    //this.writeGroups();
     //console.log(this.notes);
     this.getOperators();
+    
   },
   computed: {
     filteredNotes() {
@@ -126,11 +116,13 @@ export default {
         note.title.toLowerCase().includes(lowerCaseQuery) ||
         note.content.toLowerCase().includes(lowerCaseQuery) 
       );
+      this.aggiornaNotes();
       return newNotes;
     }
   },
   methods: {
     filterNotes(query) {
+      window.location.reload();
       this.query = query;
     },
     async writeNotes() {
@@ -227,8 +219,40 @@ export default {
 
       let risposta = await axios.request(config);
       this.groups=JSON.parse(risposta.data.data.data).groups;
-      //console.log(this.groups);
+      this.idNelDB();
+      this.aggiornaNotes();
+    },
+    aggiornaNotes(){
       this.notes.forEach(element => {
+        if(this.groups[this.gindex].groupName == "Privato"){
+          if(element.groupped == this.groups[this.gindex].groupName && element.operatorID == this.currentOperator){
+            console.log("if1")
+            console.log(this.groups[this.gindex].groupName);
+            console.log(element.groupped);
+            element.view = true;
+          } else {
+            element.view = false; 
+          }
+        } else if(this.groups[this.gindex].groupName == "Pubblico"){
+          if(element.groupped == this.groups[this.gindex].groupName){
+            console.log("if2")
+            console.log(this.groups[this.gindex].groupName);
+            console.log(element.groupped);
+            element.view = true;
+          } else {
+            element.view = false; 
+          }
+        } else if(element.groupped == this.groups[this.gindex].groupName){
+            console.log("if3")
+            console.log(this.groups[this.gindex].groupName);
+            console.log(element.groupped);
+            element.view = true;
+        } else {
+            console.log("if4")
+            console.log(this.groups[this.gindex].groupName);
+            console.log(element.groupped);
+            element.view = false; 
+        }/*
         if (element.groupped == this.groups[this.gindex].groupName) {
           //console.log("dentro")
           element.view = true;
@@ -248,17 +272,15 @@ export default {
           }
         } else {
           element.view = false;
-        }
-        /*if (element.groupped == "Privato" && this.groups[this.gindex].groupName == element.groupped && element.operatorID != this.currentOperator){
-          element.view = true;
-        } else if (element.groupped == "Pubblico" && this.groups[this.gindex].groupName == element.groupped) {
-          element.view = true;
-        } else if (element.groupped == this.groups[this.gindex].groupName) {
-          element.view = true;
-        } else {
-          element.view = false;
         }*/
       });
+    },
+    idNelDB(){
+      console.log(this.groups[0].groupOperators);
+      this.groups[0].groupOperators = [sessionStorage.getItem('operatorID')]
+      console.log(this.groups[0].groupOperators);
+      this.writeGroups();
+      this.aggiornaNotes();
     },
     //metodo getOperators
     async getOperators(){
@@ -283,11 +305,13 @@ export default {
       this.operator = risposta.data.operators;
     },
     addOperator(gruppoCorrente, op){
-      
-      const gruppoPointer = this.groups.find( g => JSON.stringify(g) == JSON.stringify(gruppoCorrente));
-      gruppoPointer.groupOperators.push(op);
-      this.writeGroups();
-      console.log(gruppoCorrente);
+      console.log(gruppoCorrente)
+      if(gruppoCorrente.groupName != 'Privato' && gruppoCorrente.groupName != 'Pubblico'){
+        const gruppoPointer = this.groups.find( g => JSON.stringify(g) == JSON.stringify(gruppoCorrente));
+        gruppoPointer.groupOperators.push(op);
+        this.writeGroups();
+        console.log(gruppoCorrente);
+      }
     },
     //metodo che aggiunge i gruppi
     addGroup(gruppi){
@@ -323,33 +347,7 @@ export default {
       
       this.gindex = this.groups.indexOf(gruppoPointer);
 
-      this.notes.forEach(element => {
-        if (element.groupped == this.groups[this.gindex].groupName) {
-          //console.log("dentro")
-          element.view = true;
-          if (this.groups[this.gindex].groupName == "Privato" && element.operatorID == this.currentOperator) {
-            element.view = true;
-            console.log("if1")
-          } else if (this.groups[this.gindex].groupName == "Pubblico") {
-            console.log("if2")
-            element.view = true;
-          } else if (this.groups[this.gindex].groupName == "Privato" && element.operatorID != this.currentOperator) {
-            console.log("if3")
-            element.view = false;
-          }
-        } else {
-          element.view = false;
-        }
-        /*if (element.groupped == "Privato" && this.groups[this.gindex].groupName == element.groupped && element.operatorID != this.currentOperator){
-          element.view = true;
-        } else if (element.groupped == "Pubblico" && this.groups[this.gindex].groupName == element.groupped) {
-          element.view = true;
-        } else if (element.groupped == this.groups[this.gindex].groupName) {
-          element.view = true;
-        } else {
-          element.view = false;
-        }*/
-      });
+      this.aggiornaNotes();
       this.showGroups= false;
     },
     //rimuovi gruppo corrente
