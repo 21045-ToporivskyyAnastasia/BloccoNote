@@ -48,7 +48,7 @@ export default{
   },
   methods:{
     addOperator(){
-      this.$emit('add-operator', this.currentOperator)
+      this.$emit('add-operator', this.currentOperator, this.gruppoCorrente)
     },
     removeGroup(){
       this.$emit('remove-group',this.gruppoCorrente)

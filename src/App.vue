@@ -230,8 +230,11 @@ export default {
       console.log(risposta.data.operators, "operatori");
       this.operator = risposta.data.operators;
     },
-    addOperator(id){
+    addOperator(id, gruppoCorrente){
       console.log(id);
+      console.log(gruppoCorrente);
+      
+
     },
     //metodo che aggiunge i gruppi
     addGroup(gruppi){
