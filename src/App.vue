@@ -313,13 +313,15 @@ export default {
       }
     },
     //metodo che aggiunge i gruppi
-    addGroup(gruppi){
-      console.log(gruppi);
-      if(gruppi.groupName != "" && !this.groups.some( g => g == gruppi.groupName)){
-      gruppi.groupOperators.push(this.currentOperator);
-      this.groups.push(gruppi);
+    addGroup(gruppo, gruppi){
+      console.log(gruppo, gruppi, "0");
+      if(gruppo.groupName != "" && !this.groups.some( g => g == gruppo.groupName)){
+      gruppo.groupOperators.push(this.currentOperator);
+      this.groups = gruppi;
+      this.groups.push(gruppo);
       this.writeGroups();
       }
+      console.log(gruppi, "1", this.groups, "2");
     },
     //metodo per modificare una nota 
     modificaNota(notem, vecchiaNota) {

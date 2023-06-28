@@ -42,27 +42,12 @@ export default{
   },
   mounted() {
     setTimeout(() => {
-      console.log(this.operators, this.gruppiAttuali);
+      console.log(this.operators, this.gruppiAttuali, this.currentOperato);
     }, 2000);
   },
   computed:{
     gruppiAttuali(){  
-      var temp = [];
-      console.log(this.groupss)
-      temp[0] = this.groupss[0];
-      temp[1] = this.groupss[1];
-      for (let i = 2; i < this.groupss.length; i++) {
-        let check = false;
-        for (let j = 0; j < this.groupss[i].groupOperators.length && check == false; j++) {
-          if(this.groupss[i].groupOperators[j] == this.currentOperato){
-            check = true;
-          }
-        }
-        if(check){
-          temp[i] = this.groupss[i];
-        }
-      }
-      return temp;
+      return this.groupss.filter( g => g.groupName == "Pubblico" || g.groupOperators.some(o => o == this.currentOperato));
     }
   },
   methods:{
