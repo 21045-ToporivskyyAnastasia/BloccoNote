@@ -3,10 +3,10 @@
     <h2>Gruppi:</h2>
     <div class="modal-content">
       <button v-if="ShowButton" class="createGroups" @click="showArea=true; ShowButton=false">+</button>
-      <button v-if="ShowButton" class="permission" @click="showOperators=true; ShowButton=false"></button>
+      <button v-if="ShowButton" class="permission" :style="{ backgroundImage : 'url(' + imgPeople + ')'  }" @click="showOperators=true; ShowButton=false"></button>
       <form class="gruppi" action="#" >
         <select class="groups" name="groups" id="lang" v-model="gruppoCorrente">
-          <option  v-for="g in gruppiAttuali" :value="g" :key="g"> {{ g.groupName }} </option>
+          <option  v-for="g in gruppiAttuali" :value="g" :key="g"> {{ g ? g.groupName :  "non so cosa sia sta roba" }} </option>
         </select>
         <button class="deleteGroup" @click.prevent="removeGroup">Rimuovi</button>
       </form>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-
+import ImgPeople from '@/images/people.png'
 export default{
   props: ["groupss", "showArea", "ShowButton","showOperators", "operators", "currentOperato"],
   data() {
@@ -37,31 +37,17 @@ export default{
         groupName: '',
         gruppoCorrente: '',
         contaGruppi: 0,
+        imgPeople : ImgPeople,
       };
   },
   mounted() {
     setTimeout(() => {
-      console.log(this.operators);
+      console.log(this.operators, this.gruppiAttuali, this.currentOperato);
     }, 2000);
   },
   computed:{
     gruppiAttuali(){  
-      var temp = [];
-      console.log(this.groupss)
-      temp[0] = this.groupss[0];
-      temp[1] = this.groupss[1];
-      for (let i = 2; i < this.groupss.length; i++) {
-        let check = false;
-        for (let j = 0; j < this.groupss[i].groupOperators.length && check == false; j++) {
-          if(this.groupss[i].groupOperators[j] == this.currentOperato){
-            check = true;
-          }
-        }
-        if(check){
-          temp[i] = this.groupss[i];
-        }
-      }
-      return temp;
+      return this.groupss.filter( g => g.groupName == "Pubblico" || g.groupOperators.some(o => o == this.currentOperato));
     }
   },
   methods:{
@@ -234,7 +220,6 @@ h2 {
   height: 20%;
   border: none;
   background-color: rgb(27, 157, 217);
-  background-image: url("src/images/people.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
