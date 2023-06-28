@@ -122,7 +122,6 @@ export default {
   },
   methods: {
     filterNotes(query) {
-      window.location.reload();
       this.query = query;
     },
     async writeNotes() {

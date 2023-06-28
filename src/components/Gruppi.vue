@@ -6,7 +6,7 @@
       <button v-if="ShowButton" class="permission" @click="showOperators=true; ShowButton=false"></button>
       <form class="gruppi" action="#" >
         <select class="groups" name="groups" id="lang" v-model="gruppoCorrente">
-          <option  v-for="g in gruppiAttuali" :value="g" :key="g"> {{ g.groupName }} </option>
+          <option  v-for="g in gruppiAttuali" :value="g" :key="g"> {{ g ? g.groupName :  "non so cosa sia sta roba" }} </option>
         </select>
         <button class="deleteGroup" @click.prevent="removeGroup">Rimuovi</button>
       </form>
@@ -41,7 +41,7 @@ export default{
   },
   mounted() {
     setTimeout(() => {
-      console.log(this.operators);
+      console.log(this.operators, this.gruppiAttuali);
     }, 2000);
   },
   computed:{
