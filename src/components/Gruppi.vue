@@ -3,7 +3,7 @@
     <h2>Gruppi:</h2>
     <div class="modal-content">
       <button v-if="ShowButton" class="createGroups" @click="showArea=true; ShowButton=false">+</button>
-      <button v-if="ShowButton" class="permission" @click="showOperators=true; ShowButton=false"></button>
+      <button v-if="ShowButton" class="permission" :style="{ backgroundImage : 'url(' + imgPeople + ')'  }" @click="showOperators=true; ShowButton=false"></button>
       <form class="gruppi" action="#" >
         <select class="groups" name="groups" id="lang" v-model="gruppoCorrente">
           <option  v-for="g in gruppiAttuali" :value="g" :key="g"> {{ g ? g.groupName :  "non so cosa sia sta roba" }} </option>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-
+import ImgPeople from '@/images/people.png'
 export default{
   props: ["groupss", "showArea", "ShowButton","showOperators", "operators", "currentOperato"],
   data() {
@@ -37,6 +37,7 @@ export default{
         groupName: '',
         gruppoCorrente: '',
         contaGruppi: 0,
+        imgPeople : ImgPeople,
       };
   },
   mounted() {
@@ -234,7 +235,6 @@ h2 {
   height: 20%;
   border: none;
   background-color: rgb(27, 157, 217);
-  background-image: url("src/images/people.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
